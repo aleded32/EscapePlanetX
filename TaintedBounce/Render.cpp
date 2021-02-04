@@ -4,7 +4,7 @@ Render::Render(){}
 
 Render::~Render(){}
 
-void Render::sprite(SDL_Surface* _surface, const char* file, SDL_Renderer* renderer, SDL_Texture* texture)
+void Render::sprite(const char* file, SDL_Renderer* renderer, SDL_Texture* texture)
 {
 	tmpSurface = IMG_Load(file);
 	if (tmpSurface != nullptr)
@@ -17,6 +17,7 @@ void Render::sprite(SDL_Surface* _surface, const char* file, SDL_Renderer* rende
 	else
 	{
 		std::cout << "error" << std::endl;
+		std::cout << IMG_GetError() << std::endl;
 	}
 	
 

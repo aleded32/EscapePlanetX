@@ -1,6 +1,8 @@
 #pragma once
 #include "SDL.h"
 #include "Render.h"
+#include "Entity.h"
+#include "time.h"
 #include <iostream>
 
 class game 
@@ -18,10 +20,9 @@ public:
 private:
 	SDL_Window* window;
 
-	Render* playerRender = new Render;
-	SDL_Surface* playerSurface;
-	SDL_Texture* playerText;
-	SDL_Rect  playerR;
+	player* Player;
+
+	timer Time;
 	
 	SDL_Renderer* renderer;
 	SDL_Event e;

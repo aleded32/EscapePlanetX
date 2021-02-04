@@ -9,7 +9,7 @@ class Render
 public:
 
 	SDL_Texture* Sprite;
-	void sprite(SDL_Surface* _surface, const char* file, SDL_Renderer* renderer, SDL_Texture* texture);
+	void sprite(const char* file, SDL_Renderer* renderer, SDL_Texture* texture);
 	Render();
 	~Render();
 

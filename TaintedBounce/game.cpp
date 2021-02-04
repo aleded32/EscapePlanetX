@@ -10,26 +10,28 @@ game::game(const char title[15], int x, int y, int w, int h, Uint32 flag)
 	SDL_RenderPresent(renderer);
 	gameRunning = true;
 
-	//load textures and set sprites
-	playerRender->sprite(playerSurface, "assets/Ball.png", renderer, playerText);
+	Player = new player(50, 150, 64, 64, renderer);
+
 
 
 }
 
 game::~game()
 {
-	delete playerRender;
+	delete Player;
 }
 
 void game::update() 
 {
-	playerR.h = 64;
-	playerR.w = 64;
-	playerR.x = 800;
-	playerR.y = 400;
+
+
+	Player->start();
 
 	while (gameRunning) 
 	{
+
+		Time.FPSFrameCap60();
+
 		SDL_PollEvent(&e);
 		switch (e.type)
 		{
@@ -37,6 +39,9 @@ void game::update()
 			gameRunning = false;
 			break;
 		}
+
+		Player->update(e);
+
 		render();
 
 		
@@ -50,7 +55,9 @@ void game::render()
 	
 
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, playerRender->Sprite, NULL, &playerR);
+
+	Player->draw(renderer);
+
 	SDL_RenderPresent(renderer);
 	
 	

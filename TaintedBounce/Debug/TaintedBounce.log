@@ -1,2 +1,14 @@
-﻿  game.cpp
+﻿  Entity.cpp
+D:\GitHub\TaintedBounce\TaintedBounce\time.h(30,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\TaintedBounce\time.h(50,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(69,30): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(70,30): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
   TaintedBounce.vcxproj -> D:\GitHub\TaintedBounce\Debug\TaintedBounce.exe
