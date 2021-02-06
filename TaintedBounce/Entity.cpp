@@ -10,6 +10,8 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	EntityRender.sprite("assets/Ball.png", render, texture);
 	isMoving = false;
 
+	speed = 20.0;
+
 }
 
 player::~player(){}
@@ -58,16 +60,20 @@ void player::update(SDL_Event &e)
 
 void player::move(SDL_Event &e) 
 {
-	distance = sqrt(abs((pow(e.motion.x, 2)) - abs(pow(boundaries.x + 32, 2))) + abs((pow(e.motion.y, 2)) - abs(pow(boundaries.y + 32, 2))));
-
-
+	
+	//distance vector between ball and mouse
 	displacement.x = e.motion.x - (boundaries.x + 32);
 	displacement.y = e.motion.y - (boundaries.y + 32);
 
-	
+	//angle in radians between both x and y values atan(y,x) is the angle given between the displacement and 0,0
+	AngleMouseBall = atan2(displacement.y, displacement.x);
 
-	velocity.x = displacement.x * (15/distance);
-	velocity.y = displacement.y * (15/distance);
+
+	
+	//cos is used as its the adjacent and hypotenuse of the angle
+	velocity.x = cos(AngleMouseBall) * (speed);
+	//sin is used as its the oppsite and hyptonuse of the angle.
+	velocity.y = sin(AngleMouseBall) * (speed);
 
 	
 	isMoving = true;
@@ -87,20 +93,21 @@ void player::worldCollision()
 
 	if (boundaries.x < 0) 
 	{
-		isMoving = false;
+		velocity.x = -velocity.x;
+		
 	}
 	else if (ActualBounderies.x> 1600) 
 	{
-		isMoving = false;
+		velocity.x = -velocity.x;
 	}
 
 	if (boundaries.y < 0) 
 	{
-		isMoving = false;
+		velocity.y = -velocity.y;
 	}
 	else if (ActualBounderies.y > 800) 
 	{
-		isMoving = false;
+		velocity.y = -velocity.y;
 	}
 }
 

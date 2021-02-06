@@ -33,7 +33,7 @@ public:
 
 		if (frameDelay > frametime) 
 		{
-			SDL_Delay(14);
+			SDL_Delay(frameDelay - frametime);
 		}
 	}
 

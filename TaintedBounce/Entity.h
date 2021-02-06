@@ -32,10 +32,11 @@ class player : public entity
 {
 public:
 
-	double distance;
+	double AngleMouseBall;
 	vector2<int> displacement;
 	vector2<int> velocity;
 	bool isMoving;
+	float speed;
 
 
 	player(int _x, int _y, int h, int w, SDL_Renderer* render);
