@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "Render.h"
 #include "Entity.h"
+#include "Background.h"
 #include "time.h"
 #include <iostream>
 
@@ -21,6 +22,7 @@ private:
 	SDL_Window* window;
 
 	player* Player;
+	background* Background;
 
 	timer Time;
 	

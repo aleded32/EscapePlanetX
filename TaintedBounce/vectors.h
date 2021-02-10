@@ -44,3 +44,11 @@ vector2<T> operator -(const vector2<T>& left, const vector2<T>& right)
 {
 	return vector2<T>(left.x - right.x, left.y - right.y);
 }
+
+template <typename T>
+vector2<T> operator /(const vector2<T>& left, T value)
+{
+	return vector2<T>(left.x/value, left.y/value);
+}
+
+

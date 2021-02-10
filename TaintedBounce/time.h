@@ -14,6 +14,9 @@ public:
 	{
 		TargetDeltaTime = 1.5;
 		lastTime = 0;
+		start = 0;
+		end = 0;
+		elapsedTime = 0;
 		FPS = 60;
 		frameDelay = 1000/FPS;
 	}
@@ -21,9 +24,31 @@ public:
 
 	~timer() 
 	{
-	
+		
 	}
 
+	float getElapsedTime()
+	{
+		return seconds;
+	}
+
+
+	void startTimer() 
+	{
+		start++;
+
+		if (start > 60) 
+		{
+			seconds += 1;
+			start = 0;
+		}
+	}
+
+	void stopTimer() 
+	{
+		start = 0;
+		seconds = 0;
+	}
 
 	void FPSFrameCap60() 
 	{
@@ -54,7 +79,9 @@ public:
 
 private:
 
-	float  TargetDeltaTime, lastTime, FPS, frameDelay, deltaTime, framestart, frametime;
+	float TargetDeltaTime, lastTime, FPS, frameDelay, deltaTime, framestart, frametime;
+	float  start, end, elapsedTime, seconds;
+	
 
 };
 

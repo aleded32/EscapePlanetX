@@ -8,9 +8,10 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	w = _w;
 
 	EntityRender.sprite("assets/Ball.png", render, texture);
+	
 	isMoving = false;
 
-	speed = 20.0;
+	gravity = 0.098;
 
 }
 
@@ -42,28 +43,40 @@ void player::update(SDL_Event &e)
 		switch (e.button.button)
 		{
 		case SDL_BUTTON_LEFT:
-			move(e);
+			gravity = 0.098;
+			CreateDirection(e);
 			break;
 		}
 	}
 	
-	if (isMoving == true) 
-	{
-			boundaries.x += velocity.x;
-			boundaries.y += velocity.y;
-	}
-
+	
+	moving();
 	worldCollision();
 
 }
 
 
-void player::move(SDL_Event &e) 
+void player::CreateDirection(SDL_Event &e) 
 {
 	
 	//distance vector between ball and mouse
 	displacement.x = e.motion.x - (boundaries.x + 32);
 	displacement.y = e.motion.y - (boundaries.y + 32);
+
+	
+
+	speed = sqrt(abs(pow(displacement.x, 2)) + abs(pow(displacement.y, 2)))/60;
+
+	if (speed < 6) 
+	{
+		speed = 6;
+	}
+	else if (speed >= 15) 
+	{
+		speed = 15;
+	}
+
+	std::cout << speed << std::endl;
 
 	//angle in radians between both x and y values atan(y,x) is the angle given between the displacement and 0,0
 	AngleMouseBall = atan2(displacement.y, displacement.x);
@@ -75,16 +88,42 @@ void player::move(SDL_Event &e)
 	//sin is used as its the oppsite and hyptonuse of the angle.
 	velocity.y = sin(AngleMouseBall) * (speed);
 
-	
+
 	isMoving = true;
 	
+	
 }
+
+void player::moving() 
+{
+
+	velocity.y += gravity;
+	boundaries.y += velocity.y;
+
+	if (isMoving == true)
+	{
+		Time.startTimer();
+		
+		if (Time.getElapsedTime() <= 10)
+		{
+			boundaries.x += velocity.x;
+		}
+		else if (Time.getElapsedTime() > 10)
+		{
+			Time.stopTimer();
+			isMoving = false;
+		}
+	}
+
+	
+}
+
 
 
 void player::worldCollision() 
 {
 
-	vector2<int> collisionBoundaries(64, 64);
+	vector2<int> collisionBoundaries(66, 66);
 	
 	vector2<int> ActualBounderies;
 
@@ -103,15 +142,31 @@ void player::worldCollision()
 
 	if (boundaries.y < 0) 
 	{
+		
 		velocity.y = -velocity.y;
+		
 	}
 	else if (ActualBounderies.y > 800) 
 	{
-		velocity.y = -velocity.y;
+		if (gravity < 1) 
+		{
+			gravity /= 0.5;
+			velocity.y = -velocity.y;
+		}
+		else
+		{
+			velocity.y = 0;
+			gravity = 0;
+			Time.stopTimer();
+			isMoving = false;
+		}
+
 	}
 }
 
-void player::draw(SDL_Renderer* renderer) 
+void player::draw(SDL_Renderer* renderer, SDL_Event &e) 
 {
 	SDL_RenderCopy(renderer, EntityRender.Sprite, 0, &boundaries);
+	if(isMoving != true)
+		SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 32);
 }

@@ -19,7 +19,7 @@ public:
 
 	void update(SDL_Event& e);
 	void start();
-	void draw();
+	void draw(SDL_Renderer* renderer);
 
 	SDL_Texture* texture;
 	Render EntityRender;
@@ -32,24 +32,30 @@ class player : public entity
 {
 public:
 
-	double AngleMouseBall;
-	vector2<int> displacement;
-	vector2<int> velocity;
-	bool isMoving;
-	float speed;
+	
 
 
 	player(int _x, int _y, int h, int w, SDL_Renderer* render);
 	~player();
 
-	void move(SDL_Event& e);
+	void CreateDirection(SDL_Event& e);
+	void moving();
 	void worldCollision();
 	void update(SDL_Event& e);
 	void start();
-	void draw(SDL_Renderer* renderer);
+	void draw(SDL_Renderer* renderer, SDL_Event& e);
+
 
 private:
 
 	timer Time;
+	float gravity;
+	double AngleMouseBall;
+	vector2<int> displacement;
+	vector2<float> velocity;
+	bool isMoving;
+	int speed;
+
+
 
 };
