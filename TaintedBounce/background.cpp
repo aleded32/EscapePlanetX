@@ -9,7 +9,7 @@ background::background(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	h = _h;
 	w = _w;
 
-	EntityRender.sprite("assets/background.png", render, texture);
+	EntityRender.sprite("assets/Background.png", render, texture);
 
 	std::cout << EntityRender.Sprite << std::endl;
 }

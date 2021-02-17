@@ -1,28 +1,5 @@
-﻿  Entity.cpp
+﻿  game.cpp
 D:\GitHub\TaintedBounce\TaintedBounce\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
 D:\GitHub\TaintedBounce\TaintedBounce\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
 D:\GitHub\TaintedBounce\TaintedBounce\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(14,17): warning C4305: '=': truncation from 'double' to 'float'
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(46,19): warning C4305: '=': truncation from 'double' to 'float'
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(68,73): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(87,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(89,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(101,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\GitHub\TaintedBounce\TaintedBounce\Entity.cpp(109,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
   TaintedBounce.vcxproj -> D:\GitHub\TaintedBounce\Debug\TaintedBounce.exe

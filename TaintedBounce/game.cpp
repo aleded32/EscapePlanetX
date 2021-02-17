@@ -10,7 +10,7 @@ game::game(const char title[15], int x, int y, int w, int h, Uint32 flag)
 	SDL_RenderPresent(renderer);
 	gameRunning = true;
 
-	Player = new player(50, 150, 64, 64, renderer);
+	Player = new player(0, 736, 64, 64, renderer);
 	Background = new background(0, 0, 800,1600, renderer);
 
 

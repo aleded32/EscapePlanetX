@@ -55,6 +55,8 @@ private:
 	vector2<float> velocity;
 	bool isMoving;
 	int speed;
+	int clickCount;
+	bool isPressed;
 
 
 

@@ -10,8 +10,10 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	EntityRender.sprite("assets/Ball.png", render, texture);
 	
 	isMoving = false;
+	isPressed = false;
 
 	gravity = 0.098;
+	clickCount = 0;
 
 }
 
@@ -29,27 +31,37 @@ void player::start()
 
 void player::update(SDL_Event &e)
 {
-	if (e.type == SDL_KEYDOWN) 
-	{
-		switch (e.key.keysym.sym) 
-		{
-		case SDLK_a:
-			std::cout << "is pressed" << std::endl;
-			break;
-		}
-	}
-	if (e.type == SDL_MOUSEBUTTONDOWN && isMoving == false)
+	
+	if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
 	{
 		switch (e.button.button)
 		{
 		case SDL_BUTTON_LEFT:
-			gravity = 0.098;
-			CreateDirection(e);
+			
+			if(clickCount < 2)
+			{
+				gravity = 0.098;
+				CreateDirection(e);
+			}
+				
+			isMoving = true;
+			isPressed = true;
 			break;
 		}
+
+	}
+	else if (e.type == SDL_MOUSEBUTTONUP && isPressed == true)
+	{
+		switch (e.button.button)
+		{
+		case SDL_BUTTON_LEFT:
+			isPressed = false;
+			break;
+		}
+
 	}
 	
-	
+	std::cout << clickCount << std::endl;
 	moving();
 	worldCollision();
 
@@ -88,8 +100,9 @@ void player::CreateDirection(SDL_Event &e)
 	//sin is used as its the oppsite and hyptonuse of the angle.
 	velocity.y = sin(AngleMouseBall) * (speed);
 
-
-	isMoving = true;
+	if(clickCount < 2)
+		clickCount++;
+	
 	
 	
 }
@@ -100,7 +113,7 @@ void player::moving()
 	velocity.y += gravity;
 	boundaries.y += velocity.y;
 
-	if (isMoving == true)
+	if (isMoving  == true)
 	{
 		Time.startTimer();
 		
@@ -110,11 +123,14 @@ void player::moving()
 		}
 		else if (Time.getElapsedTime() > 10)
 		{
+			
 			Time.stopTimer();
 			isMoving = false;
 		}
 	}
 
+	if(gravity <= 0)
+		clickCount = 0;
 	
 }
 
@@ -157,6 +173,8 @@ void player::worldCollision()
 		{
 			velocity.y = 0;
 			gravity = 0;
+			boundaries.y -= 5;
+			velocity.x = 0;
 			Time.stopTimer();
 			isMoving = false;
 		}
@@ -167,6 +185,6 @@ void player::worldCollision()
 void player::draw(SDL_Renderer* renderer, SDL_Event &e) 
 {
 	SDL_RenderCopy(renderer, EntityRender.Sprite, 0, &boundaries);
-	if(isMoving != true)
+	if(clickCount < 2 && e.motion.x > 0 && e.motion.x < 1600)
 		SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 32);
 }
