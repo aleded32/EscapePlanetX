@@ -1,5 +1,0 @@
-﻿  game.cpp
-D:\GitHub\TaintedBounce\TaintedBounce\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\TaintedBounce\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\TaintedBounce\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-  TaintedBounce.vcxproj -> D:\GitHub\TaintedBounce\Debug\TaintedBounce.exe

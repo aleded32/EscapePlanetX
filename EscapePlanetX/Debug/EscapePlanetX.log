@@ -1,0 +1,28 @@
+﻿  Entity.cpp
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(15,17): warning C4305: '=': truncation from 'double' to 'float'
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(54,20): warning C4305: '=': truncation from 'double' to 'float'
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(92,73): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(110,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(112,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(147,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(151,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  EscapePlanetX.vcxproj -> D:\GitHub\TaintedBounce\Debug\EscapePlanetX.exe
