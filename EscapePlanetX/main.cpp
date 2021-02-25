@@ -3,7 +3,7 @@
 
 int main(int argc, char *args[])
 {
-	game* Game = new game("Escape planet X", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN);
+	game* Game = new game("Escape planet X", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 704, false);
 
 	Game->update();
 	Game->clean();

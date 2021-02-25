@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "render.h"
 #include "vectors.h"
+#include "collision.h"
 #include "time.h"
 #include <iostream>
 
@@ -42,18 +43,20 @@ public:
 	void CreateDirection(SDL_Event& e);
 	void moving();
 	void worldCollision();
+	void tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i);
 	void update(SDL_Event& e);
 	void start();
 	void draw(SDL_Renderer* renderer, SDL_Event& e);
 
 	vector2<float> setVelocity(float x, float y);
 	vector2<float> getVelocity();
-
+	float gravity;
 
 private:
 
 	timer Time;
-	float gravity;
+	collision Collision;
+	
 	double AngleMouseBall;
 	vector2<int> displacement;
 	

@@ -15,14 +15,18 @@ D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(112,35): warning C4244: '=': co
           [
               T=float
           ]
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(147,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(233,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(151,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(237,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(97): warning C4715: 'collision::LeftTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(64): warning C4715: 'collision::RightTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(160): warning C4715: 'collision::DownTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(128): warning C4715: 'collision::UpTileCollision': not all control paths return a value
   EscapePlanetX.vcxproj -> D:\GitHub\TaintedBounce\Debug\EscapePlanetX.exe

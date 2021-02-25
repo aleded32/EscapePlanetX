@@ -59,19 +59,14 @@ void game::update()
 
 void game::collisionUpdate() 
 {
+	
 	for (int i = 0; i < level1->grid.y; i++) 
 	{
 		for (int j = 0; j < level1->grid.x; j++)
 		{
-
-			if (Collision.tileCollision(Player->boundaries, level1->dest, level1->getTile(j, i), level1->grid.x, level1->grid.y, 1, i, j) == true)
-			{
-				Player->setVelocity(0, 0);
-				Player->clickCount = 0;
-			}
+			Player->tilingCollisionLevel1(level1->getTile(j, i), level1->grid.x, level1->grid.y, level1->dest, j, i);
 		}
 	}
-	
 }
 
 void game::render() 

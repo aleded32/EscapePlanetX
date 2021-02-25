@@ -5,7 +5,6 @@
 #include "Background.h"
 #include "time.h"
 #include "tilemaps.h"
-#include "collision.h"
 #include <iostream>
 
 class game 

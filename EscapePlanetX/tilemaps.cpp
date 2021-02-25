@@ -105,6 +105,51 @@ void tilemaps::drawLevel(SDL_Renderer* renderer)
 				src.x = 96;
 				src.y = 0;
 				break;
+			case 4:
+				src.x = 128;
+				src.y = 0;
+				break;
+			case 5:
+				src.x = 0;
+				src.y = 32;
+				break;
+			case 6:
+				src.x = 32;
+				src.y = 32;
+				break;
+			case 7:
+				src.x = 64;
+				src.y = 32;
+				break;
+			case 8:
+				src.x = 96;
+				src.y = 32;
+				break;
+			case 9:
+				src.x = 128;
+				src.y = 32;
+				break;
+			case 10:
+				src.x = 0;
+				src.y = 64;
+				break;
+			case 11:
+				src.x = 32;
+				src.y = 64;
+				break;
+			case 12:
+				src.x = 64;
+				src.y = 64;
+				break;
+			case 13:
+				src.x = 96;
+				src.y = 64;
+				break;
+			case 14:
+				src.x = 128;
+				src.y = 64;
+				break;
+
 			}
 			
 			SDL_RenderCopy(renderer, tileRender.Sprite, &src, &dest);

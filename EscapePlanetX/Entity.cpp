@@ -127,7 +127,7 @@ void player::worldCollision()
 
 	
 
-	if (ActualBounderies.y > 1080) 
+	if (ActualBounderies.y > 720) 
 	{
 		boundaries.x = startPos.x;
 		boundaries.y = startPos.y;
@@ -138,6 +138,92 @@ void player::worldCollision()
 	}
 		moving();
 	
+}
+
+void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i) 
+{
+
+	//wall
+	for (int u = 1; u < 8; u++)
+	{
+		
+		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
+		{
+			std::cout << "down" << std::endl;
+			boundaries.y = (32 * i) + 34;
+			setVelocity(0, gravity);
+		}
+
+		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
+		{
+			boundaries.x = (32 * j) - 33;
+			setVelocity(0, gravity);
+
+		}
+		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
+		{
+			std::cout << "working" << std::endl;
+			if (tile == u)
+			{
+				boundaries.x = (32 * j) + 34;
+				setVelocity(0, gravity);
+			}
+
+
+
+		}
+		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
+		{
+			boundaries.y = (32 * i) - 16;
+			setVelocity(0, 0);
+			gravity = 0;
+			clickCount = 0;
+		}
+	}
+			
+
+	//spike collision
+	for (int u = 10; u < 14; u++)
+	{
+
+		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
+		{
+			std::cout << "down" << std::endl;
+			boundaries.y = 50;
+			boundaries.x = 50;
+			setVelocity(0, gravity);
+			clickCount = 0;
+		}
+
+		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
+		{
+			boundaries.y = 50;
+			boundaries.x = 50;
+			setVelocity(0, gravity);
+			clickCount = 0;
+
+		}
+		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
+		{
+			std::cout << "working" << std::endl;
+			if (tile == u)
+			{
+				boundaries.x = (32 * j) + 34;
+				setVelocity(0, gravity);
+			}
+
+
+
+		}
+		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
+		{
+			boundaries.y = 50;
+			boundaries.x = 50;
+			setVelocity(0, gravity);
+			clickCount = 0;
+		}
+	}
+
 }
 
 void player::moving() 
