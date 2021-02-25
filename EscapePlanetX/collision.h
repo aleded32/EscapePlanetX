@@ -6,7 +6,7 @@ class collision
 {
 public:
 
-	bool isLeft;
+	bool isCollision;
 
 	bool tileCollision(SDL_Rect player, SDL_Rect tileRect,int tile, int x , int y, int tileValue, int i, int j)
 	{

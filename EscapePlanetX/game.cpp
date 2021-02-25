@@ -78,9 +78,15 @@ void game::render()
 
 	Background->draw(renderer);
 	level1->drawLevel(renderer);
-	Player->draw(renderer, e);
+	for (int i = 0; i < level1->grid.y; i++)
+	{
+		for (int j = 0; j < level1->grid.x; j++)
+		{
+			level1->FindTile = level1->getTile(j, i);
+		}
+	}
 	
-
+	Player->draw(renderer, e);
 	SDL_RenderPresent(renderer);
 	
 	

@@ -49,7 +49,7 @@ void player::update(SDL_Event &e)
 		{
 		case SDL_BUTTON_LEFT:
 			
-			if(clickCount < 2)
+			if(clickCount < 2 && cantAim == false)
 			{
 				gravity = 0.098;
 				CreateDirection(e);
@@ -174,6 +174,7 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 		}
 		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
 		{
+			Collision.isCollision = true;
 			boundaries.y = (32 * i) - 16;
 			setVelocity(0, 0);
 			gravity = 0;
@@ -186,41 +187,56 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 	for (int u = 10; u < 14; u++)
 	{
 
-		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
+		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
-			std::cout << "down" << std::endl;
+			boundaries.y = (32 * i) + 34;
+			setVelocity(0, gravity);
+			
 			boundaries.y = 50;
 			boundaries.x = 50;
-			setVelocity(0, gravity);
+			
 			clickCount = 0;
 		}
 
-		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
+		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
+
+			boundaries.x = (32 * j) - 33;
+			setVelocity(0, gravity);
+
 			boundaries.y = 50;
 			boundaries.x = 50;
-			setVelocity(0, gravity);
 			clickCount = 0;
 
 		}
-		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
+		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
-			std::cout << "working" << std::endl;
+
 			if (tile == u)
 			{
 				boundaries.x = (32 * j) + 34;
 				setVelocity(0, gravity);
+
+				boundaries.y = 50;
+				boundaries.x = 50;
+
+				clickCount = 0;
 			}
 
 
 
 		}
-		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
+		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
-			boundaries.y = 50;
-			boundaries.x = 50;
-			setVelocity(0, gravity);
-			clickCount = 0;
+			if(boundaries.x > (32 * j) && boundaries.x < (32 * j) + dest.w || boundaries.x + boundaries.w > (32 * j) && boundaries.x + boundaries.w < (32 * j) + dest.w && boundaries.y < (32 * i))
+			{
+				std::cout << "working" << std::endl;
+				boundaries.y = (32 * i) - 16;
+				boundaries.y = 50;
+				boundaries.x = 50;
+				clickCount = 0;
+			}
+			setVelocity(0, 0);
 		}
 	}
 
@@ -242,11 +258,13 @@ void player::moving()
 
 
 
-void player::draw(SDL_Renderer* renderer, SDL_Event &e) 
+void player::draw(SDL_Renderer* renderer, SDL_Event &e)
 {
 	SDL_RenderCopy(renderer, EntityRender.Sprite, 0, &boundaries);
-	if(clickCount < 2 && e.motion.x > 0 && e.motion.x < 1920)
-		SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
+
+		 if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
+				SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
+
 }
 
 

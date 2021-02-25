@@ -50,13 +50,15 @@ public:
 
 	vector2<float> setVelocity(float x, float y);
 	vector2<float> getVelocity();
+
+	
 	float gravity;
 
 private:
 
 	timer Time;
 	collision Collision;
-	
+	bool cantAim;
 	double AngleMouseBall;
 	vector2<int> displacement;
 	

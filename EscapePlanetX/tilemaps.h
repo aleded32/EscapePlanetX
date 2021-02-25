@@ -22,7 +22,7 @@ public:
 	
 	SDL_Rect dest;
 
-
+	int FindTile;
 
 	int setLevel(const char file[24]);
 
