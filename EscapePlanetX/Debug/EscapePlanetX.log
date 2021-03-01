@@ -1,47 +1,40 @@
 ﻿  background.cpp
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(81,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(83,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(94,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
   Entity.cpp
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(81,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(83,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(94,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
 D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(15,17): warning C4305: '=': truncation from 'double' to 'float'
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(54,20): warning C4305: '=': truncation from 'double' to 'float'
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(92,73): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(110,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(53,20): warning C4305: '=': truncation from 'double' to 'float'
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(91,73): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(104,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(248,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(112,35): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(249,28): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(253,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\Entity.cpp(252,30): warning C4244: '+=': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
   game.cpp
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(81,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(83,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(94,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
 D:\GitHub\TaintedBounce\EscapePlanetX\tilemaps.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   main.cpp
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(55,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(61,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(75,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(81,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(83,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+D:\GitHub\TaintedBounce\EscapePlanetX\time.h(94,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
 D:\GitHub\TaintedBounce\EscapePlanetX\tilemaps.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating Code...
-D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(160): warning C4715: 'collision::DownTileCollision': not all control paths return a value
-D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(97): warning C4715: 'collision::LeftTileCollision': not all control paths return a value
-D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(64): warning C4715: 'collision::RightTileCollision': not all control paths return a value
-D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(128): warning C4715: 'collision::UpTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\render.h(16): warning C4172: returning address of local variable or temporary: instance
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(85): warning C4715: 'collision::IRightTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(181): warning C4715: 'collision::IDownTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(149): warning C4715: 'collision::IUpTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\collision.h(118): warning C4715: 'collision::ILeftTileCollision': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\render.h(16): warning C4172: returning address of local variable or temporary: instance
   EscapePlanetX.vcxproj -> D:\GitHub\TaintedBounce\Debug\EscapePlanetX.exe

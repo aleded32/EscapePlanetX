@@ -22,9 +22,11 @@ public:
 	void start();
 	void draw(SDL_Renderer* renderer);
 
-	SDL_Texture* texture;
-	Render EntityRender;
+	SDL_Texture* sprite;
+	
+	
 
+	
 
 };
 
@@ -40,11 +42,11 @@ public:
 	player(int _x, int _y, int h, int w, SDL_Renderer* render);
 	~player();
 
-	void CreateDirection(SDL_Event& e);
+	void CreateDirection(SDL_Event& e, float dt);
 	void moving();
 	void worldCollision();
 	void tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i);
-	void update(SDL_Event& e);
+	void update(SDL_Event& e, float dt);
 	void start();
 	void draw(SDL_Renderer* renderer, SDL_Event& e);
 
@@ -56,10 +58,9 @@ public:
 
 private:
 
-	timer Time;
-	collision Collision;
+	
 	bool cantAim;
-	double AngleMouseBall;
+	float AngleMouseBall;
 	vector2<int> displacement;
 	
 	vector2<float> velocity;

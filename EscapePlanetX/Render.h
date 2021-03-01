@@ -8,14 +8,22 @@ class Render
 {
 public:
 
-	SDL_Texture* Sprite;
-	void sprite(const char* file, SDL_Renderer* renderer, SDL_Texture* texture);
+	Render(const Render&) = delete;
+
+	static Render& get() 
+	{
+		Render instance;
+		return instance;
+	}
+
+	static SDL_Texture* sprite(const char* file, SDL_Renderer* renderer, SDL_Texture* texture) { return get().Isprite(file, renderer, texture); }
+	
 	Render();
 	~Render();
 
 private:
 
-
+	SDL_Texture* Isprite(const char* file, SDL_Renderer* renderer, SDL_Texture* texture);
 	SDL_Surface* tmpSurface;
 	
 

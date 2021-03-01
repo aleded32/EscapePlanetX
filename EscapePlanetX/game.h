@@ -25,8 +25,7 @@ private:
 
 	player* Player;
 	background* Background;
-	tilemaps* level1;
-	collision Collision;
+	tilemaps* level1;;
 	int w, h;
 	timer Time;
 	

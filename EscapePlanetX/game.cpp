@@ -36,8 +36,8 @@ void game::update()
 
 	while (gameRunning) 
 	{
-
-		Time.FPSFrameCap60();
+		
+		timer::FPSFrameCap60();
 
 		SDL_PollEvent(&e);
 		switch (e.type)
@@ -47,7 +47,8 @@ void game::update()
 			break;
 		}
 
-		Player->update(e);
+		
+		Player->update(e, timer::getDeltaTime());
 		collisionUpdate();
 
 		render();

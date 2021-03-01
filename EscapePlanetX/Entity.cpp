@@ -7,7 +7,7 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	h = _h;
 	w = _w;
 
-	EntityRender.sprite("assets/player.png", render, texture);
+	sprite = Render::sprite("assets/player.png", render, sprite);
 	
 	isMoving = false;
 	isPressed = false;
@@ -20,7 +20,6 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	
 
 	
-
 
 
 }
@@ -40,7 +39,7 @@ void player::start()
 }
 
 
-void player::update(SDL_Event &e)
+void player::update(SDL_Event &e, float dt)
 {
 	
 	if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
@@ -52,7 +51,7 @@ void player::update(SDL_Event &e)
 			if(clickCount < 2 && cantAim == false)
 			{
 				gravity = 0.098;
-				CreateDirection(e);
+				CreateDirection(e,dt);
 				clickCount++;
 			}
 				
@@ -80,7 +79,7 @@ void player::update(SDL_Event &e)
 }
 
 
-void player::CreateDirection(SDL_Event &e) 
+void player::CreateDirection(SDL_Event &e, float dt) 
 {
 	
 	//distance vector between ball and mouse
@@ -91,13 +90,13 @@ void player::CreateDirection(SDL_Event &e)
 
 	speed = sqrt(abs(pow(displacement.x, 2)) + abs(pow(displacement.y, 2)))/60;
 
-	if (speed < 6) 
+	if (speed < 3) 
 	{
-		speed = 6;
+		speed = 3;
 	}
-	else if (speed >= 15) 
+	else if (speed >= 13) 
 	{
-		speed = 15;
+		speed = 13;
 	}
 
 
@@ -107,12 +106,12 @@ void player::CreateDirection(SDL_Event &e)
 
 	
 	//cos is used as its the adjacent and hypotenuse of the angle
-	velocity.x = cos(AngleMouseBall) * (speed);
+	velocity.x = cos(AngleMouseBall) * speed * dt;
 	//sin is used as its the oppsite and hyptonuse of the angle.
-	velocity.y = sin(AngleMouseBall) * (speed);
+	velocity.y = sin(AngleMouseBall) * speed * dt;
 
 	
-	
+	std::cout << speed << std::endl;
 	
 	
 }
@@ -147,20 +146,20 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 	for (int u = 1; u < 8; u++)
 	{
 		
-		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
+		if (collision::DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
 		{
 			std::cout << "down" << std::endl;
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
 		}
 
-		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
+		else if (collision::RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
 		{
 			boundaries.x = (32 * j) - 33;
 			setVelocity(0, gravity);
 
 		}
-		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
+		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
 		{
 			std::cout << "working" << std::endl;
 			if (tile == u)
@@ -172,9 +171,9 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 
 
 		}
-		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
+		else if (collision::UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
 		{
-			Collision.isCollision = true;
+			
 			boundaries.y = (32 * i) - 16;
 			setVelocity(0, 0);
 			gravity = 0;
@@ -187,7 +186,7 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 	for (int u = 10; u < 14; u++)
 	{
 
-		if (Collision.DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
+		if (collision::DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
@@ -198,7 +197,7 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 			clickCount = 0;
 		}
 
-		else if (Collision.RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
+		else if (collision::RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
 
 			boundaries.x = (32 * j) - 33;
@@ -209,7 +208,7 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 			clickCount = 0;
 
 		}
-		else if (Collision.LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
+		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
 
 			if (tile == u)
@@ -226,7 +225,7 @@ void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest
 
 
 		}
-		else if (Collision.UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
+		else if (collision::UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
 			if(boundaries.x > (32 * j) && boundaries.x < (32 * j) + dest.w || boundaries.x + boundaries.w > (32 * j) && boundaries.x + boundaries.w < (32 * j) + dest.w && boundaries.y < (32 * i))
 			{
@@ -260,7 +259,7 @@ void player::moving()
 
 void player::draw(SDL_Renderer* renderer, SDL_Event &e)
 {
-	SDL_RenderCopy(renderer, EntityRender.Sprite, 0, &boundaries);
+	SDL_RenderCopy(renderer, sprite, 0, &boundaries);
 
 		 if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
 				SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);

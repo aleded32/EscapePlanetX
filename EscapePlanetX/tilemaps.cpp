@@ -15,7 +15,7 @@ tilemaps::tilemaps(int _x, int _y, SDL_Renderer* renderer)
 		levelTiles[i] = new int[grid.y];
 	}
 
-	tileRender.sprite("assets/tiles.png", renderer, tiles);
+	tiles = Render::sprite("assets/tiles.png", renderer, tiles);
 }
 
 tilemaps::~tilemaps() 
@@ -152,7 +152,7 @@ void tilemaps::drawLevel(SDL_Renderer* renderer)
 
 			}
 			
-			SDL_RenderCopy(renderer, tileRender.Sprite, &src, &dest);
+			SDL_RenderCopy(renderer, tiles, &src, &dest);
 		}
 		
 	}

@@ -2,29 +2,36 @@
 #include <iostream>
 
 template<typename T>
-class vector2 
+class vector2
 {
 public:
 	T x, y;
 
-	
+
+	static vector2& get() 
+	{
+		vector2 instance;
+		return instance;
+	}
+
 	vector2()
 	{
 
 	}
 
-	
+
 	vector2(T _x, T _y)
 	{
 		x = _x;
 		y = _y;
 	}
 
-
 	~vector2()
 	{
 
 	}
+
+private:
 
 	
 
