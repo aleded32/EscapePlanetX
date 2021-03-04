@@ -111,7 +111,6 @@ void player::CreateDirection(SDL_Event &e, float dt)
 	velocity.y = sin(AngleMouseBall) * speed * dt;
 
 	
-	std::cout << speed << std::endl;
 	
 	
 }
@@ -251,6 +250,7 @@ void player::moving()
 	{
 			boundaries.x += velocity.x;
 	}
+
 
 	
 }

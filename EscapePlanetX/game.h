@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "Render.h"
 #include "Entity.h"
+#include "Enemy.h"
 #include "Background.h"
 #include "time.h"
 #include "tilemaps.h"
@@ -23,9 +24,17 @@ public:
 private:
 	SDL_Window* window;
 
+	std::vector<int> enemyX;
+	std::vector<int> enemyY;
+	std::vector<int> enemyH;
+	std::vector<int> enemyW;
+	
+	SDL_Rect enemySrc[2];
+
 	player* Player;
 	background* Background;
-	tilemaps* level1;;
+	tilemaps* level1;
+	enemy* enemiesType1;
 	int w, h;
 	timer Time;
 	

@@ -16,7 +16,7 @@ public:
 	}
 
 	static bool tileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().ItileCollision(player, tileRect, tile, x, y, tileValue,i,j); }
-
+	static bool entityCollision(SDL_Rect player, SDL_Rect object) { return get().IentityCollision(player, object); }
 	static bool UpTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().IUpTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
 	static bool DownTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().IDownTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
 	static bool LeftTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().ILeftTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
@@ -150,6 +150,9 @@ private:
 
 	bool IDownTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j)
 	{
+		vector2<int> tileXY;
+		vector2<int> playerXY;
+
 		tileXY.x = 32 * j;
 		tileXY.y = 32 * i;
 
@@ -180,15 +183,22 @@ private:
 
 	}
 
-	void IentityCollision() 
+	bool IentityCollision(SDL_Rect player, SDL_Rect object) 
 	{
-	
+		if (player.x + player.h > object.x && player.x < object.x + object.w && player.y + player.h > object.y && player.y < object.y + object.h)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 
+	
 	vector2<int> tileXY;
 	vector2<int> playerXY;
-	
 	
 
 };

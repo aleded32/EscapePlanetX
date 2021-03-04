@@ -14,7 +14,9 @@ public:
 	int h, w;
 	vector2<int> position;
 
+	
 	SDL_Rect boundaries;
+
 	vector2<int> startPos;
 	
 
