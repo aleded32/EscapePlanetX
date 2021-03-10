@@ -1,19 +1,5 @@
-﻿  Enemy.cpp
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(81,25): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(83,28): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\time.h(94,26): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(73,12): warning C4018: '<': signed/unsigned mismatch
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(79,34): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(83,34): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(87,34): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(90,34): warning C4244: '-=': conversion from 'float' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(93,88): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(94,36): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(98,90): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(99,36): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(103,90): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(104,36): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(107,90): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\Enemy.cpp(108,34): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\GitHub\TaintedBounce\EscapePlanetX\render.h(16): warning C4172: returning address of local variable or temporary: instance
+﻿  tilemaps.cpp
+D:\GitHub\TaintedBounce\EscapePlanetX\tilemaps.h(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\GitHub\TaintedBounce\EscapePlanetX\tilemaps.cpp(63): warning C4715: 'tilemaps::setLevel': not all control paths return a value
+D:\GitHub\TaintedBounce\EscapePlanetX\Render.h(16): warning C4172: returning address of local variable or temporary: instance
   EscapePlanetX.vcxproj -> D:\GitHub\TaintedBounce\Debug\EscapePlanetX.exe

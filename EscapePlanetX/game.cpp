@@ -13,22 +13,17 @@ game::game(const char title[15], int x, int y, int w, int h, Uint32 flag)
 	SDL_GetWindowSize(window, &w, &h);
 
 	Player = new player(50, 50, 16, 32, renderer);
-	enemiesType1 = new enemy;
+	enemiesType1 = new enemy(renderer);
 	level1 = new tilemaps(w/32, h/32, renderer);
 	Background = new background(0, 0, 1080,1920, renderer);
 
+	
 	//enemy 1
-	enemyX.push_back(80);
-	enemyY.push_back(80);
-	enemyH.push_back(32);
-	enemyW.push_back(32);
+	
 
 	//enemy2
-	enemyX.push_back(850);
-	enemyY.push_back(200);
-	enemyH.push_back(32);
-	enemyW.push_back(32);
-
+	
+	
 	
 }
 
@@ -42,16 +37,29 @@ game::~game()
 
 void game::update() 
 {
-	
-	
 
+		enemyX.push_back(200);
+		enemyY.push_back(230);
+		enemyH.push_back(32);
+		enemyW.push_back(32);
+
+		enemyX.push_back(850);
+		enemyY.push_back(200);
+		enemyH.push_back(32);
+		enemyW.push_back(32);
+
+
+
+	
+	
 	enemySrc[0].x = 96;
 	enemySrc[0].y = 32;
 	enemySrc[0].w = 32;
 	enemySrc[0].h = 32;
 
 	
-		enemiesType1->start(2, enemyX, enemyY, enemyW, enemyH, renderer, enemySrc[0]);
+		enemiesType1->start(2, enemyX, enemyY, enemyW, enemyH,enemySrc[0]);
+
 		enemiesType1->setType(enemiesType1->strLeft, 0);
 		enemiesType1->setType(enemiesType1->waveUp, 1);
 	
@@ -97,15 +105,14 @@ void game::collisionUpdate()
 		}
 	}
 
-	for (size_t i = 0; i < enemyX.size(); i++) 
-	{
-		if (collision::entityCollision(Player->boundaries, *enemiesType1->getBoundaries()[i]) == true)
+	
+		if (collision::entityCollision(Player->boundaries, enemiesType1->getBoundaries()) == true)
 		{
 			Player->boundaries.x = Player->startPos.x;
 			Player->boundaries.y = Player->startPos.y;
 
 		}
-	}
+	
 
 }
 
@@ -118,13 +125,13 @@ void game::render()
 
 	Background->draw(renderer);
 	level1->drawLevel(renderer);
-	for (int i = 0; i < level1->grid.y; i++)
+	/*for (int i = 0; i < level1->grid.y; i++)
 	{
 		for (int j = 0; j < level1->grid.x; j++)
 		{
 			level1->FindTile = level1->getTile(j, i);
 		}
-	}
+	}*/
 
 	enemiesType1->draw(renderer);
 	

@@ -1,16 +1,25 @@
 #include "Enemy.h"
 
-void enemy::start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Renderer* render, SDL_Rect _src)
+
+enemy::enemy(SDL_Renderer* render) 
+{
+	sprite = Render::sprite("assets/tiles.png", render, sprite);
+}
+
+enemy::~enemy() {}
+
+void enemy::start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect _src)
 {
 
 	src = _src;
 
 	for (int i = 0; i < amountOfEnemies; i++) 
 	{
+
 		positions.push_back(new vector2<int>(enemyX[i], enemyY[i]));
 		widths.push_back(width[i]);
 		heights.push_back(height[i]);
-		sprites.push_back(Render::sprite("assets/tiles.png", render, sprite));
+		
 		flips.push_back(new SDL_RendererFlip);
 
 		boundaries.push_back(new SDL_Rect);
@@ -35,9 +44,9 @@ void enemy::draw(SDL_Renderer* renderer)
 	point.x = 16;
 	point.y = 16;
 	
-	for (size_t i = 0; i < sprites.size(); i++) 
+	for (size_t i = 0; i < boundaries.size(); i++) 
 	{
-		SDL_RenderCopyEx(renderer, sprites[i], &src, boundaries[i], 0, &point, *flips[i]);
+		SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
 		
 	}
 
@@ -48,7 +57,7 @@ void enemy::draw(SDL_Renderer* renderer)
 void enemy::update(SDL_Event &e, float dt) 
 {
 	
-
+	
 	if (boundaries[0]->x < positions[0]->x - 50)
 		type[0] = strRight;
 	else if (boundaries[0]->x > positions[0]->x + 400)

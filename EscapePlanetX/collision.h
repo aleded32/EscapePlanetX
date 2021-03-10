@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "vectors.h"
 #include "SDL.h"
 
@@ -16,7 +17,7 @@ public:
 	}
 
 	static bool tileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().ItileCollision(player, tileRect, tile, x, y, tileValue,i,j); }
-	static bool entityCollision(SDL_Rect player, SDL_Rect object) { return get().IentityCollision(player, object); }
+	static bool entityCollision(SDL_Rect player, std::vector<SDL_Rect*> object) { return get().IentityCollision(player, object); }
 	static bool UpTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().IUpTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
 	static bool DownTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().IDownTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
 	static bool LeftTileCollision(SDL_Rect player, SDL_Rect tileRect, int tile, int x, int y, int tileValue, int i, int j) { return get().ILeftTileCollision(player, tileRect, tile, x, y, tileValue, i, j); }
@@ -183,15 +184,18 @@ private:
 
 	}
 
-	bool IentityCollision(SDL_Rect player, SDL_Rect object) 
+	bool IentityCollision(SDL_Rect player, std::vector<SDL_Rect*> object) 
 	{
-		if (player.x + player.h > object.x && player.x < object.x + object.w && player.y + player.h > object.y && player.y < object.y + object.h)
+		for (int i = 0; i < object.size(); i++)
 		{
-			return true;
-		}
-		else
-		{
-			return false;
+			if (player.x + player.h > object[i]->x && player.x < object[i]->x + object[i]->w && player.y + player.h > object[i]->y && player.y < object[i]->y + object[i]->h)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 
