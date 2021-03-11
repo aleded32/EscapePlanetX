@@ -1,12 +1,12 @@
 #include "tilemaps.h"
 
 
-tilemaps::tilemaps(int _x, int _y, SDL_Renderer* renderer)
+tilemaps::tilemaps(int _x, int _y, SDL_Renderer* renderer, int _levelpar)
 {
 	grid.x = _x;
 	grid.y = _y;
 
-
+	levelpar = _levelpar;
 
 	levelTiles = new int* [grid.x];
 

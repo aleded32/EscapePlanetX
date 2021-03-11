@@ -17,7 +17,7 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 
 	collisionBoundaries = new vector2<int>(34, 18);
 
-	
+	currentPar = 0;
 
 	
 
@@ -53,6 +53,7 @@ void player::update(SDL_Event &e, float dt)
 				gravity = 0.098;
 				CreateDirection(e,dt);
 				clickCount++;
+				currentPar++;
 			}
 				
 			isMoving = true;
@@ -263,6 +264,8 @@ void player::draw(SDL_Renderer* renderer, SDL_Event &e)
 
 		 if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
 				SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
+
+	
 
 }
 

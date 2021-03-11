@@ -1,10 +1,11 @@
 #pragma once
 #include "SDL.h"
-#include "Render.h"
+//#include "Render.h"
 #include "Entity.h"
 #include "Enemy.h"
 #include "Background.h"
 #include "time.h"
+#include "score.h"
 #include "tilemaps.h"
 #include <iostream>
 
@@ -34,6 +35,7 @@ private:
 	player* Player;
 	background* Background;
 	tilemaps* level1;
+	Score* level1Score;
 	enemy* enemiesType1;
 	int w, h;
 	timer Time;
