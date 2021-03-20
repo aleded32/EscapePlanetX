@@ -13,30 +13,21 @@ game::game(const char title[15], int x, int y, int w, int h, Uint32 flag)
 
 	SDL_GetWindowSize(window, &w, &h);
 
-	Player = new player(60, 50, 16, 32, renderer);
-	enemiesType1 = new enemy(renderer);
-	level1 = new tilemaps(w/32, h/32, renderer, 2);
-	Background = new background(0, 0, 1080,1920, renderer);
-	level1Score = new Score(level1->getLevelPar(), Player->getCurrentPar(), renderer);
 	
-	
+	LevelManager = new levelManager(renderer);
 	
 	
 }
 
 game::~game()
 {
-	delete Player;
-	delete Background;
-	delete level1;
-	delete enemiesType1;
-	delete level1Score;
+	delete LevelManager;
 }
 
 void game::update() 
 {
 
-		enemyX.push_back(200);
+	/*	enemyX.push_back(200);
 		enemyY.push_back(230);
 		enemyH.push_back(32);
 		enemyW.push_back(32);
@@ -65,7 +56,7 @@ void game::update()
 	Player->start();
 	Background->start();
 	level1->setLevel("assets/level1.txt");
-
+	*/
 	while (gameRunning) 
 	{
 		
@@ -81,11 +72,13 @@ void game::update()
 
 		float dt = timer::getDeltaTime();
 
+		/*platFormAnimation->updateAnimationTile(2, level1->srcX, level1->srcY);
+
 		enemiesType1->update(e, dt);
 		Player->update(e, dt);
 		level1Score->update(e, Player->getCurrentPar(), renderer);
 		collisionUpdate();
-
+		*/
 		render();
 
 		
@@ -96,7 +89,7 @@ void game::update()
 void game::collisionUpdate() 
 {
 	
-	for (int i = 0; i < level1->grid.y; i++) 
+	/*for (int i = 0; i < level1->grid.y; i++) 
 	{
 		for (int j = 0; j < level1->grid.x; j++)
 		{
@@ -113,7 +106,7 @@ void game::collisionUpdate()
 
 		}
 
-	}
+	}*/
 
 }
 
@@ -124,11 +117,15 @@ void game::render()
 
 	SDL_RenderClear(renderer);
 
-	Background->draw(renderer);
+	/*Background->draw(renderer);
 	level1->drawLevel(renderer);
 	enemiesType1->draw(renderer);
 	Player->draw(renderer, e);
 	level1Score->draw(renderer);
+	*/
+
+	LevelManager->draw(renderer);
+
 
 	SDL_RenderPresent(renderer);
 	

@@ -113,7 +113,7 @@ void enemy::move(moveType type, int enemy, float dt)
 			boundaries[enemy]->y -= 1.5 * dt;
 			break;
 		case enemy::waveDown:
-			boundaries[enemy]->x += 1 * (sin(2 * M_PI * 0.25 * (int)timer::getElapsedTimer()) + 0);
+			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)timer::getElapsedTimer()) + 0);
 			boundaries[enemy]->y += 3 * dt;
 			break;
 		}

@@ -1,12 +1,6 @@
 #pragma once
 #include "SDL.h"
-//#include "Render.h"
-#include "Entity.h"
-#include "Enemy.h"
-#include "Background.h"
-#include "time.h"
-#include "score.h"
-#include "tilemaps.h"
+#include "levelManager.h"
 #include <iostream>
 
 class game 
@@ -25,20 +19,7 @@ public:
 private:
 	SDL_Window* window;
 
-	std::vector<int> enemyX;
-	std::vector<int> enemyY;
-	std::vector<int> enemyH;
-	std::vector<int> enemyW;
-	
-	SDL_Rect enemySrc[2];
-
-	player* Player;
-	background* Background;
-	tilemaps* level1;
-	Score* level1Score;
-	enemy* enemiesType1;
-	int w, h;
-	timer Time;
+	levelManager* LevelManager;
 	
 	SDL_Renderer* renderer;
 	SDL_Event e;

@@ -16,11 +16,29 @@ tilemaps::tilemaps(int _x, int _y, SDL_Renderer* renderer, int _levelpar)
 	}
 
 	tiles = Render::sprite("assets/tiles.png", renderer, tiles);
+
+	srcX = new int[]
+	{
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+	};
+
+	srcY = new int[]
+	{
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+		0, 32, 64, 96, 128,
+	};
 }
 
 tilemaps::~tilemaps() 
 {
 	delete levelTiles;
+	delete srcX;
+	delete srcY;
 }
 
 int tilemaps::setLevel(const char file[30]) 
@@ -90,64 +108,64 @@ void tilemaps::drawLevel(SDL_Renderer* renderer)
 			switch (levelTiles[j][i])
 			{
 			case 0:
-				src.x = 0;
-				src.y = 0;
+				src.x = srcX[0];
+				src.y = srcY[0];
 				break;
 			case 1:
-				src.x = 32;
-				src.y = 0;
+				src.x = srcX[1];
+				src.y = srcY[0];
 				break;
 			case 2:
-				src.x = 64;
-				src.y = 0;
+				src.x = srcX[2];
+				src.y = srcY[0];
 				break;
 			case 3:
-				src.x = 96;
-				src.y = 0;
+				src.x = srcX[3];
+				src.y = srcY[0];
 				break;
 			case 4:
-				src.x = 128;
-				src.y = 0;
+				src.x = srcX[4];
+				src.y = srcY[0];
 				break;
 			case 5:
-				src.x = 0;
-				src.y = 32;
+				src.x = srcX[5];
+				src.y = srcY[6];
 				break;
 			case 6:
-				src.x = 32;
-				src.y = 32;
+				src.x = srcX[6];
+				src.y = srcY[6];
 				break;
 			case 7:
-				src.x = 64;
-				src.y = 32;
+				src.x = srcX[7];
+				src.y = srcY[6];
 				break;
 			case 8:
-				src.x = 96;
-				src.y = 32;
+				src.x = srcX[8];
+				src.y = srcY[6];
 				break;
 			case 9:
-				src.x = 128;
-				src.y = 32;
+				src.x = srcX[9];
+				src.y = srcY[6];
 				break;
 			case 10:
-				src.x = 0;
-				src.y = 64;
+				src.x = srcX[10];
+				src.y = srcY[12];
 				break;
 			case 11:
-				src.x = 32;
-				src.y = 64;
+				src.x = srcX[11];
+				src.y = srcY[12];
 				break;
 			case 12:
-				src.x = 64;
-				src.y = 64;
+				src.x = srcX[12];
+				src.y = srcY[12];
 				break;
 			case 13:
-				src.x = 96;
-				src.y = 64;
+				src.x = srcX[13];
+				src.y = srcY[12];
 				break;
 			case 14:
-				src.x = 128;
-				src.y = 64;
+				src.x = srcX[14];
+				src.y = srcY[12];
 				break;
 
 			}
@@ -159,3 +177,5 @@ void tilemaps::drawLevel(SDL_Renderer* renderer)
 	
 	
 }
+
+ 

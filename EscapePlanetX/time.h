@@ -26,6 +26,8 @@ public:
 
 	static float getDeltaTime() { return get().IgetDeltaTime(); }
 
+	static void restartTime() { return get().IrestartTime(); }
+
 	timer()
 	{
 		TargetDeltaTime = 1.5;
@@ -36,6 +38,8 @@ public:
 		deltaTime = 0;
 		FPS = 60;
 		frameDelay = 1000 / FPS;
+		timerControl = false;
+		currentTime = 0;
 	}
 
 	~timer() 
@@ -55,19 +59,23 @@ private:
 
 	void IstartTimer()
 	{
-		start++;
-
-		if (start > 60)
+		if (timerControl == false) 
 		{
-			seconds += 1;
-			start = 0;
+			currentTime += deltaTime;
+			if (currentTime >= 160) 
+			{
+				seconds++;
+				currentTime = 0;
+			}
 		}
+			
 	}
 
 	void IstopTimer()
 	{
-		start = 0;
+		timerControl = true;
 		seconds = 0;
+		currentTime = 0;
 	}
 
 	void IFPSFrameCap60()
@@ -97,10 +105,15 @@ private:
 		return deltaTime;
 	}
 
-	
+	void IrestartTime() 
+	{
+		seconds = 0;
+		currentTime = 0;
+	}
 
 	float TargetDeltaTime, lastTime, FPS, frameDelay, deltaTime, framestart, frametime;
-	float  start, end, elapsedTime, seconds;
+	float  start, end, elapsedTime, seconds, currentTime;
+	bool timerControl;
 	
 
 };

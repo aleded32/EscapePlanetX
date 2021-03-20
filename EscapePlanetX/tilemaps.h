@@ -21,6 +21,7 @@ public:
 	Render tileRender;
 	
 	SDL_Rect dest;
+	SDL_Rect src;
 
 	int FindTile;
 
@@ -33,17 +34,23 @@ public:
 		return levelpar;
 	}
 
+	int** getLevel() 
+	{
+		return levelTiles;
+	}
 
 	void drawLevel(SDL_Renderer* renderer);
-	
+	int* srcX;
+	int* srcY;
 
 private:
 
 	int w, h;
 	std::ifstream* read;
 	SDL_Texture* tiles;
-	SDL_Rect src;
+	
 	int **levelTiles;
+
 	int levelpar;
 };
 
