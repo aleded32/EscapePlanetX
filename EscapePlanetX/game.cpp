@@ -32,7 +32,7 @@ void game::update()
 	while (gameRunning) 
 	{
 		
-		timer::FPSFrameCap60();
+		time.FPSFrameCap60();
 
 		SDL_PollEvent(&e);
 		switch (e.type)
@@ -42,7 +42,7 @@ void game::update()
 			break;
 		}
 
-		float dt = timer::getDeltaTime();
+		float dt = time.getDeltaTime();
 		LevelManager->update(e, gameRunning, dt);
 		
 		render();

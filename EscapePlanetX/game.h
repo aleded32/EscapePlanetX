@@ -20,7 +20,7 @@ private:
 
 	player* Player;
 	background* Background;
-
+	timer time;
 	levelManager* LevelManager;
 	
 	SDL_Renderer* renderer;

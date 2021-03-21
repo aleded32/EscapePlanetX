@@ -80,7 +80,7 @@ void levelManager::start(SDL_Renderer* renderer)
 	enemyH.push_back(32);
 	enemyW.push_back(32);
 
-	enemyX.push_back(850);
+	enemyX.push_back(1000);
 	enemyY.push_back(200);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
@@ -114,7 +114,7 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 	mouseRect.h = 0;
 	if (currentLevel == levels::startMenu)
 	{
-		startMenuUpdate(e, isGameRunning);
+		startMenuUpdate(e, isGameRunning, dt);
 	}
 	else if (currentLevel == levels::guideMenu)
 	{
@@ -144,10 +144,10 @@ void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
 }
 
 
-void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning) 
+void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt) 
 {
-	timer::startTimer();
-	
+	time.startTimer(dt);
+	std::cout << time.getElapsedTime() << std::endl;
 	if (collision::entityCollision(mouseRect, *spriteRects[1]) == true) 
 	{
 		spriteSrc[1]->x = 32;
@@ -177,9 +177,9 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning)
 	}
 	
 
-	if (timer::getElapsedTimer() >= 0.25)
+	if (time.getElapsedTime() >= 0.25)
 	{
-		timer::pauseTime();
+		time.pauseTime();
 		if (e.type == SDL_MOUSEBUTTONDOWN)
 		{
 			switch (e.button.button)
@@ -188,7 +188,7 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning)
 
 				if (spriteSrc[1]->x >= 32)
 				{
-					timer::resumeTime();
+					
 					currentLevel = levels::level1;
 				}
 				else if (spriteSrc[2]->x >= 32)
@@ -231,8 +231,8 @@ void levelManager::guideMenuUpdate(SDL_Event& e)
 		case SDL_BUTTON_LEFT:
 			if (spriteSrc[3]->x >= 32)
 			{
-				timer::restartTime();
-				timer::resumeTime();
+				time.restartTime();
+				time.resumeTime();
 				currentLevel = levels::startMenu;
 			}
 			break;
@@ -245,7 +245,8 @@ void levelManager::guideMenuUpdate(SDL_Event& e)
 
 void levelManager::level1Update(SDL_Event& e, float dt) 
 {
-	platFormAnimation->updateAnimationTile(2, level1Tiles->srcX, level1Tiles->srcY);
+	time.stopTimer();
+	platFormAnimation->updateAnimationTile(2, level1Tiles->srcX, level1Tiles->srcY, dt);
 
 	enemiesType1->update(e, dt);
 	Player->update(e, dt);

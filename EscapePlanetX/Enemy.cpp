@@ -77,7 +77,7 @@ void enemy::update(SDL_Event &e, float dt)
 
 void enemy::move(moveType type, int enemy, float dt) 
 {
-	timer::startTimer();
+	time.startTimer(dt);
 
 	if (enemy < boundaries.size() && enemy > -1) 
 	{
@@ -99,21 +99,21 @@ void enemy::move(moveType type, int enemy, float dt)
 			boundaries[enemy]->y -= 4 * dt;
 			break;
 		case enemy::waveLeft:
-			boundaries[enemy]->y += 1* (sin(2 * M_PI * 0.25 *(int)timer::getElapsedTimer()) + 0);
+			boundaries[enemy]->y += 1* (sin(2 * M_PI * 0.25 *(int)time.getElapsedTime()) + 0);
 			boundaries[enemy]->x -= 1.5 * dt;
 			*flips[enemy] = SDL_FLIP_NONE;
 			break;
 		case enemy::waveRight:
-			boundaries[enemy]->y += 1 * (sin(2 * M_PI * 0.25 * (int)timer::getElapsedTimer()) + 0);
+			boundaries[enemy]->y += 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
 			boundaries[enemy]->x += 1.5 * dt;
 			*flips[enemy] = SDL_FLIP_HORIZONTAL;
 			break;
 		case enemy::waveUp:
-			boundaries[enemy]->x += 1 * (sin(2 * M_PI * 0.25 * (int)timer::getElapsedTimer()) + 0);
+			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
 			boundaries[enemy]->y -= 1.5 * dt;
 			break;
 		case enemy::waveDown:
-			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)timer::getElapsedTimer()) + 0);
+			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
 			boundaries[enemy]->y += 3 * dt;
 			break;
 		}

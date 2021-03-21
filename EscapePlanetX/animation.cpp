@@ -20,10 +20,10 @@ animation::animation(float _timePerFrame, int _maxImgCount, SDL_Rect _src, int _
 animation::~animation() {}
 
 
-void animation::updateAnimationTile(int tileValue,int* x, int* y) 
+void animation::updateAnimationTile(int tileValue,int* x, int* y, float dt) 
 {
-	
-	elaspedTime = timer::getElapsedTimer();
+	time.startTimer(dt);
+	elaspedTime = time.getElapsedTime();
 
 	setSrc(tileValue, modSrcX[i], modSrcY[j], x, y);
 	
@@ -63,7 +63,7 @@ void animation::updateAnimationTile(int tileValue,int* x, int* y)
 
 		
 		
-		timer::restartTime();
+		time.restartTime();
 		
 	}
 	

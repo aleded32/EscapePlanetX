@@ -7,30 +7,7 @@ class timer
 {
 public:
 
-	timer(const timer&) = delete;
-
-	static timer& get() 
-	{
-		static timer instance;
-		return instance;
-	}
-
 	
-	static float getElapsedTimer() { return get().IgetElapsedTime(); }
-
-	static void startTimer() { return get().IstartTimer(); }
-
-	static void stopTimer() { return get().IstopTimer(); }
-
-	static void FPSFrameCap60() { return get().IFPSFrameCap60(); }
-
-	static float getDeltaTime() { return get().IgetDeltaTime(); }
-
-	static void restartTime() { return get().IrestartTime(); }
-
-	static void pauseTime() { return get().IpauseTime(); }
-
-	static void resumeTime() { return get().IresumeTime(); }
 
 	timer()
 	{
@@ -53,20 +30,21 @@ public:
 
 	
 
-private:
 
-	float IgetElapsedTime()
+
+	float getElapsedTime()
 	{
 		return seconds;
 	}
 
 
-	void IstartTimer()
+	void startTimer(float dt)
 	{
 		
 		if (timerControl == false) 
 		{
-			currentTime += deltaTime;
+			
+			currentTime += dt;
 			if (currentTime >= 40) 
 			{
 				seconds+=0.25;
@@ -76,14 +54,14 @@ private:
 			
 	}
 
-	void IstopTimer()
+	void stopTimer()
 	{
 		timerControl = true;
 		seconds = 0;
 		currentTime = 0;
 	}
 
-	void IFPSFrameCap60()
+	void FPSFrameCap60()
 	{
 		
 
@@ -96,7 +74,7 @@ private:
 		framestart = SDL_GetTicks();
 	}
 
-	float IgetDeltaTime()
+	float getDeltaTime()
 	{
 
 		deltaTime = (SDL_GetTicks() - lastTime) * (FPS/1000);
@@ -110,21 +88,23 @@ private:
 		return deltaTime;
 	}
 
-	void IrestartTime() 
+	void restartTime() 
 	{
 		seconds = 0;
 		currentTime = 0;
 	}
 
-	void IpauseTime() 
+	void pauseTime() 
 	{
 		timerControl = true;
 	}
 
-	void IresumeTime() 
+	void resumeTime() 
 	{
 		timerControl = false;
 	}
+
+private:
 
 	float TargetDeltaTime, lastTime, FPS, frameDelay, deltaTime, framestart, frametime;
 	float  start, end, elapsedTime, seconds, currentTime;

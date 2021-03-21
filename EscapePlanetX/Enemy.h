@@ -57,4 +57,6 @@ private:
 	std::vector<int> widths;
 	std::vector<int> heights;
 	SDL_Texture* sprite;
+
+	timer time;
 };

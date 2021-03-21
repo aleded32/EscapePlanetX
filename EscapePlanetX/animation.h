@@ -11,7 +11,7 @@ public:
 	animation(float timePerSecond, int _maxImgCount, SDL_Rect src, int srcX, int srcY, int* modifiablesrcX, int* modifiablesrcY);
 	~animation();
 
-	void updateAnimationTile(int tileValue, int* x, int* y);
+	void updateAnimationTile(int tileValue, int* x, int* y, float dt);
 	void setSrc(int tileValue, int newSrcX, int newSrcY, int* srcX, int* srcY);
 	void updateAnimationEntity();
 	
@@ -31,5 +31,6 @@ private:
 	int* modSrcY;
 	int i, j;
 	bool startAnimation;
+	timer time;
 
 };

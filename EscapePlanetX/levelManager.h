@@ -39,7 +39,7 @@ private:
 	void level1Update(SDL_Event& e, float dt);
 	void level2Update(SDL_Event& e, float dt);
 	void level3Update(SDL_Event& e, float dt);
-	void startMenuUpdate(SDL_Event& e, bool& isGameRunning);
+	void startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt);
 	void gameOverMenuUpdate(SDL_Event& e);
 	void guideMenuUpdate(SDL_Event& e);
 
@@ -49,7 +49,7 @@ private:
 	void startMenuDraw(SDL_Renderer* render);
 	void gameOverMenuDraw(SDL_Renderer* render);
 	void guideMenuDraw(SDL_Renderer* render);
-
+	timer time;
 	
 
 	levels currentLevel;
