@@ -28,6 +28,10 @@ public:
 
 	static void restartTime() { return get().IrestartTime(); }
 
+	static void pauseTime() { return get().IpauseTime(); }
+
+	static void resumeTime() { return get().IresumeTime(); }
+
 	timer()
 	{
 		TargetDeltaTime = 1.5;
@@ -59,12 +63,13 @@ private:
 
 	void IstartTimer()
 	{
+		
 		if (timerControl == false) 
 		{
 			currentTime += deltaTime;
-			if (currentTime >= 160) 
+			if (currentTime >= 40) 
 			{
-				seconds++;
+				seconds+=0.25;
 				currentTime = 0;
 			}
 		}
@@ -109,6 +114,16 @@ private:
 	{
 		seconds = 0;
 		currentTime = 0;
+	}
+
+	void IpauseTime() 
+	{
+		timerControl = true;
+	}
+
+	void IresumeTime() 
+	{
+		timerControl = false;
 	}
 
 	float TargetDeltaTime, lastTime, FPS, frameDelay, deltaTime, framestart, frametime;

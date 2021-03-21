@@ -7,7 +7,7 @@ Score::Score(int _levelPar, int clickAmount, SDL_Renderer* renderer)
 	levelPar = _levelPar;
 	font = TTF_OpenFont("assets/ARCADECLASSIC.TTF", 50);
 	
-	
+	texture = new SDL_Texture * [2];
 	
 	
 	texts[0].x = 20;

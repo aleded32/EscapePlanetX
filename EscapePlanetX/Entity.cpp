@@ -265,7 +265,7 @@ void player::draw(SDL_Renderer* renderer, SDL_Event &e)
 		 if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
 				SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
 
-	
+		 
 
 }
 

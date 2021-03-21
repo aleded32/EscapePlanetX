@@ -11,13 +11,15 @@ public:
 	~game();
 
 	void update();
-	void collisionUpdate();
 	void render();
 	void clean();
 
 
 private:
 	SDL_Window* window;
+
+	player* Player;
+	background* Background;
 
 	levelManager* LevelManager;
 	

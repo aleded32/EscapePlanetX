@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Render.h"
+#include "SDL.h"
 #include <iostream>
 #include <String>
-#include "Render.h"
+
 
 
 
@@ -26,7 +28,7 @@ private:
 	int levelPar;
 	TTF_Font* font;
 	SDL_Rect texts[2];
-	SDL_Texture* texture[2];
+	SDL_Texture** texture;
 	std::string String[2];
 
 };

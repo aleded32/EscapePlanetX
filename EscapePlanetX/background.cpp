@@ -10,7 +10,7 @@ background::background(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	w = _w;
 
 	sprite = Render::sprite("assets/Background.png", render, sprite);
-
+	
 	
 }
 
@@ -28,4 +28,5 @@ void background::start()
 void background::draw(SDL_Renderer* renderer)
 {
 	SDL_RenderCopy(renderer, sprite, 0, &boundaries);
+	
 }

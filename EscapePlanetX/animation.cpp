@@ -22,7 +22,6 @@ animation::~animation() {}
 
 void animation::updateAnimationTile(int tileValue,int* x, int* y) 
 {
-	timer::startTimer();
 	
 	elaspedTime = timer::getElapsedTimer();
 
@@ -43,7 +42,6 @@ void animation::updateAnimationTile(int tileValue,int* x, int* y)
 			}
 			else if(i < 5)
 			{
-				//std::cout << imgCount << "  " << i << std::endl;
 				
 				i++;
 				
@@ -76,7 +74,6 @@ void animation::updateAnimationTile(int tileValue,int* x, int* y)
 void animation::setSrc(int tileValue, int newSrcX, int newSrcY, int* srcsX, int* srcsY)
 {
 
-	std::cout << srcsX[2] << std::endl;
 
 
 			switch (tileValue)
