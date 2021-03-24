@@ -19,13 +19,20 @@ public:
 	void start();
 	void draw(SDL_Renderer* renderer);
 
+	int getCurrentPar() 
+	{
+		return currentPar;
+	}
 
+	int totalPar;
+	int totalLevelPar;
 
 
 private:
 
 	int currentPar;
 	int levelPar;
+	
 	TTF_Font* font;
 	SDL_Rect texts[2];
 	SDL_Texture** texture;

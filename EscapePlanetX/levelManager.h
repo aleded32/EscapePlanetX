@@ -7,6 +7,7 @@
 #include "score.h"
 #include "animation.h"
 #include "tilemaps.h"
+#include "goal.h"
 #include <iostream>
 
 
@@ -29,6 +30,7 @@ public:
 
 	player* Player;
 	background* Background;
+	goal* Goal;
 
 	void update(SDL_Event& e, bool& isGameRunning, float dt);
 	void start(SDL_Renderer* renderer);

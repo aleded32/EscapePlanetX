@@ -30,30 +30,45 @@ player::~player()
 }
 
 
-void player::start() 
+void player::start()
 {
 	boundaries.x = position.x;
 	boundaries.y = position.y;
 	boundaries.h = h;
 	boundaries.w = w;
+	level1Start = false;
 }
 
 
-void player::update(SDL_Event &e, float dt)
+void player::update(SDL_Event &e, float dt, int currentLevel)
 {
-	
+
+
+	if (currentLevel == 3 && level1Start == false)
+	{
+		leveltime.startTimer(dt);
+		currentTime = leveltime.getElapsedTime();
+	}
+	else if(currentLevel > 3 || level1Start == true)
+		currentTime = 0.25;
+
+
 	if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
 	{
 		switch (e.button.button)
 		{
 		case SDL_BUTTON_LEFT:
 			
-			if(clickCount < 2 && cantAim == false)
+			if(clickCount < 2 && cantAim == false && currentTime >= 0.25f)
 			{
 				gravity = 0.098;
 				CreateDirection(e,dt);
 				clickCount++;
 				currentPar++;
+				if (currentLevel == 3)
+					leveltime.stopTimer();
+				if(level1Start == false)
+					level1Start = true;
 			}
 				
 			isMoving = true;
@@ -118,15 +133,15 @@ void player::CreateDirection(SDL_Event &e, float dt)
 
 void player::worldCollision() 
 {
-	startPos.x = 50;
-	startPos.y = 200;
+	startPos.x = position.x;
+	startPos.y = position.y;
 
 	ActualBounderies.x = boundaries.x + collisionBoundaries->x;
 	ActualBounderies.y = boundaries.y + collisionBoundaries->y;
 
 	
 
-	if (ActualBounderies.y > 720) 
+	if (ActualBounderies.y > 736) 
 	{
 		boundaries.x = startPos.x;
 		boundaries.y = startPos.y;
@@ -139,7 +154,7 @@ void player::worldCollision()
 	
 }
 
-void player::tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i) 
+void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i) 
 {
 
 	//wall

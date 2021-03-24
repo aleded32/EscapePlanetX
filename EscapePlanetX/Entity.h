@@ -47,8 +47,8 @@ public:
 	void CreateDirection(SDL_Event& e, float dt);
 	void moving();
 	void worldCollision();
-	void tilingCollisionLevel1(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i);
-	void update(SDL_Event& e, float dt);
+	void tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i);
+	void update(SDL_Event& e, float dt, int currentLevel);
 	void start();
 	void draw(SDL_Renderer* renderer, SDL_Event& e);
 
@@ -72,8 +72,11 @@ private:
 	
 	vector2<float> velocity;
 	bool isMoving;
+	float currentTime;
 	int speed;
 	int currentPar;
+	bool level1Start;
+	timer leveltime;
 	
 	bool isPressed;
 	vector2<int>* collisionBoundaries;
