@@ -3,7 +3,7 @@
 levelManager::levelManager(SDL_Renderer* renderer) 
 {
 
-	currentLevel = levels::startMenu;
+	currentLevel = levels::level1;
 
 	textures = new SDL_Texture * [7];
 	
@@ -16,11 +16,11 @@ levelManager::levelManager(SDL_Renderer* renderer)
 		textures[6] = Render::sprite("assets/quit.png", renderer, textures[6]),
 
 
-		Player = new player(50, 100, 16, 32, renderer);
+		Player = new player(80, 200, 16, 32, renderer);
 		enemiesType1 = new enemy(renderer);
 		level1Tiles = new tilemaps(1280 / 32, 704 / 32, renderer, 2);
 		Background = new background(0, 0, 1080, 1920, renderer);
-		level1Score = new Score(level1Tiles->getLevelPar(), Player->getCurrentPar(), renderer);
+		level1Score = new Score(Player->currentPar, renderer);
 		platFormAnimation = new animation(0.25, 3, level1Tiles->src, 2, 0, level1Tiles->srcX, level1Tiles->srcY);
 		enemyAnimation = new animation(1, 2, enemySrc[0], 8, 6, level1Tiles->srcX, level1Tiles->srcX);
 		Goal = new goal;
@@ -75,15 +75,28 @@ levelManager::~levelManager()
 
 void levelManager::start(SDL_Renderer* renderer) 
 {
-	enemyX.push_back(200);
-	enemyY.push_back(230);
+	//level1
+	enemyX.push_back(220);
+	enemyY.push_back(350);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
 
-	enemyX.push_back(1000);
-	enemyY.push_back(200);
+	enemyX.push_back(540);
+	enemyY.push_back(220);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
+
+	//level2
+	enemyX.push_back(150);
+	enemyY.push_back(10);
+	enemyH.push_back(32);
+	enemyW.push_back(32);
+
+	enemyX.push_back(1060);
+	enemyY.push_back(480);
+	enemyH.push_back(32);
+	enemyW.push_back(32);
+
 
 	enemySrc[0].x = 96;
 	enemySrc[0].y = 32;
@@ -93,11 +106,12 @@ void levelManager::start(SDL_Renderer* renderer)
 
 	enemiesType1->start(2, enemyX, enemyY, enemyW, enemyH, enemySrc[0]);
 
-	enemiesType1->setType(enemiesType1->strLeft, 0);
-	enemiesType1->setType(enemiesType1->waveUp, 1);
+	enemiesType1->setType(3);
+
+
 	Player->start();
 	Background->start();
-	level1Tiles->setLevel("assets/level1.txt");
+	
 	Goal->start(renderer);
 	
 }
@@ -119,10 +133,44 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 	}
 	else if (currentLevel == levels::level1)
 	{
-		level1Update(e, dt);
-		currentLevel = (levels)Goal->update(e, (int)currentLevel, Player->boundaries, level1Score->getCurrentPar(), level1Score->totalPar);
-		
+		Goal->setIsLevelEnd(false);
+		level1Tiles->setLevel("assets/level1.txt");
 	}
+	else if (currentLevel == levels::level2)
+	{
+		Goal->setIsLevelEnd(false);
+		level1Tiles->setLevel("assets/level2.txt");
+	}
+	else if (currentLevel == levels::level3)
+	{
+		Goal->setIsLevelEnd(false);
+		level1Tiles->setLevel("assets/level3.txt");
+	}
+	else if (currentLevel == levels::gameOverMenu)
+	{
+		//gameOverMenuUpdate(e);
+	}
+
+	level1Update(e, dt);
+	currentLevel = (levels)Goal->update(e, (int)currentLevel, Player->boundaries, Player->currentPar, level1Score->totalPar, Player->level1Start, Player->hasLevelEnded, Player->position);
+
+	if(Goal->getIsLevelEnd() == true)
+	{
+		if (enemyX.empty() != true)
+		{
+			enemyX.erase(enemyX.begin());
+			enemyX.erase(enemyX.begin(), enemyX.begin() + 1);
+			enemyY.erase(enemyY.begin());
+			enemyY.erase(enemyY.begin(), enemyY.begin() + 1);
+
+			for (int i = 0; i < enemyX.size(); i++) 
+			{
+				enemiesType1->setBoundaries(enemyX[i], enemyY[i], i);
+			}
+		}
+		enemiesType1->setType((int)currentLevel);
+	}
+		
 }
 
 void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
@@ -136,10 +184,15 @@ void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
 	{
 		guideMenuDraw(renderer);
 	}
-	else if (currentLevel == levels::level1)
+	else if (currentLevel == levels::level1 || currentLevel == levels::level2 || currentLevel == levels::level3)
 	{
+		
 		level1Draw(renderer, e);
 		Goal->draw(renderer);
+	}
+	else if (currentLevel == levels::gameOverMenu)
+	{
+		//gameOverMenuDraw(renderer);
 	}
 
 	
@@ -249,8 +302,7 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 
 	platFormAnimation->updateAnimationTile(2, level1Tiles->srcX, level1Tiles->srcY, dt);
 
-	enemiesType1->update(e, dt);
-	Player->update(e, dt,(int)currentLevel);
+	
 
 	for (int i = 0; i < level1Tiles->grid.y; i++)
 	{
@@ -264,15 +316,16 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 	{
 		if (collision::entityCollision(Player->boundaries, *e) == true)
 		{
-			Player->boundaries.x = Player->startPos.x;
-			Player->boundaries.y = Player->startPos.y;
+			Player->boundaries.x = Player->position.x;
+			Player->boundaries.y = Player->position.y;
 			Player->setVelocity(0, 0);
 
 		}
 
 	}
 	
-	
+	enemiesType1->update(e, dt, (int)currentLevel);
+	Player->update(e, dt, (int)currentLevel);
 	
 }
 
@@ -294,7 +347,14 @@ void levelManager::guideMenuDraw(SDL_Renderer* renderer)
 
 void levelManager::level1Draw(SDL_Renderer* renderer, SDL_Event& e) 
 {
-	level1Score->update(e, Player->getCurrentPar(), renderer);
+	if (currentLevel == levels::level1)
+		currentLevelPar = 0;
+	else if (currentLevel == levels::level2)
+		currentLevelPar = 1;
+	else if (currentLevel == levels::level3)
+		currentLevelPar = 2;
+
+	level1Score->update(e, Player->currentPar, renderer, currentLevelPar);
 	Background->draw(renderer);
 	level1Tiles->drawLevel(renderer);
 	enemiesType1->draw(renderer);

@@ -55,12 +55,9 @@ public:
 	vector2<float> setVelocity(float x, float y);
 	vector2<float> getVelocity();
 
-	int getCurrentPar() 
-	{
-		return currentPar;
-	}
-
-	
+	int currentPar;
+	bool level1Start;
+	bool hasLevelEnded;
 	float gravity;
 
 private:
@@ -74,8 +71,7 @@ private:
 	bool isMoving;
 	float currentTime;
 	int speed;
-	int currentPar;
-	bool level1Start;
+
 	timer leveltime;
 	
 	bool isPressed;

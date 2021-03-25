@@ -90,6 +90,7 @@ public:
 
 	void restartTime() 
 	{
+		timerControl = false;
 		seconds = 0;
 		currentTime = 0;
 	}

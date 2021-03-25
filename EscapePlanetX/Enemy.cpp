@@ -54,19 +54,39 @@ void enemy::draw(SDL_Renderer* renderer)
 }
 
 
-void enemy::update(SDL_Event &e, float dt) 
+void enemy::update(SDL_Event &e, float dt, int currentLevel) 
 {
 	
-	
-	if (boundaries[0]->x < positions[0]->x - 50)
-		type[0] = strRight;
-	else if (boundaries[0]->x > positions[0]->x + 400)
-		type[0] = strLeft;
 
-	if (boundaries[1]->y < positions[1]->y - 140)
-		type[1] = waveDown;
-	else if (boundaries[1]->y > positions[1]->y + 140)
-		type[1] = waveUp;
+
+
+	switch(currentLevel)
+	{
+	case 3:
+		if (boundaries[1]->x < positions[1]->x - 100)
+			type[1] = strRight;
+		if (boundaries[1]->x > positions[1]->x + 100)
+			type[1] = strLeft;
+
+		if (boundaries[0]->y < positions[0]->y - 80)
+			type[0] = strDown;
+		 if (boundaries[0]->y > positions[0]->y + 80)
+			type[0] = strUp;
+		break;
+	case 4:
+		if (boundaries[1]->x < positions[1]->x - 100)
+			type[1] = waveRight;
+		if (boundaries[1]->x > positions[1]->x + 100)
+			type[1] = waveLeft;
+
+		if (boundaries[0]->y < positions[0]->y - 40)
+			type[0] = strDown;
+		if (boundaries[0]->y > positions[0]->y + 40)
+			type[0] = strUp;
+		break;
+
+	}
+	
 	
 
 		move(type[0], 0, dt);

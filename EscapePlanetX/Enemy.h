@@ -28,19 +28,39 @@ public:
 
 	void move(moveType _type, int enemy, float dt);
 
-	void update(SDL_Event& e, float dt);
+	void update(SDL_Event& e, float dt, int currentLevel);
 	void start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect src);
 	void collisionEnemy();
 	void draw(SDL_Renderer* renderer);
 
-	moveType setType(moveType _type, int enemy) 
+	void setType(int currentLevel) 
 	{
-		type[enemy] = _type;
-		return type[enemy];
+		switch (currentLevel)
+		{
+		case 3:
+			type[0] = strDown;
+			type[1] = strRight;
+			break;
+		case 4:
+			type[0] = strUp;
+			type[1] = strRight;
+			break;
+		case 5:
+			type[0] = strUp;
+			type[1] = strRight;
+			break;
+		}
 	}
 
 	std::vector<SDL_Rect*> getBoundaries() 
 	{
+		return boundaries;
+	}
+
+	std::vector<SDL_Rect*> setBoundaries(int x, int y, int i)
+	{
+		boundaries[i]->x = x;
+		boundaries[i]->y = y;
 		return boundaries;
 	}
 

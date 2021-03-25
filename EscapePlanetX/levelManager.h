@@ -75,4 +75,9 @@ private:
 
 	enemy* enemiesType1;
 
+	int currentLevelPar;
+
+
+	bool isLevelEnd;
+
 };

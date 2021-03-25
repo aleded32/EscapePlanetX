@@ -12,10 +12,10 @@ class Score
 {
 public:
 
-	Score(int _levelPar, int clickAmount,SDL_Renderer* renderer);
+	Score(int clickAmount,SDL_Renderer* renderer);
 	~Score();
 
-	void update(SDL_Event& e, int clickAmount, SDL_Renderer* renderer);
+	void update(SDL_Event& e, int clickAmount, SDL_Renderer* renderer, int levelParIndex);
 	void start();
 	void draw(SDL_Renderer* renderer);
 
@@ -31,7 +31,7 @@ public:
 private:
 
 	int currentPar;
-	int levelPar;
+	int* levelPar;
 	
 	TTF_Font* font;
 	SDL_Rect texts[2];

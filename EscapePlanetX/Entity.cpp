@@ -20,6 +20,7 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	currentPar = 0;
 
 	
+	
 
 
 }
@@ -36,6 +37,10 @@ void player::start()
 	boundaries.y = position.y;
 	boundaries.h = h;
 	boundaries.w = w;
+	velocity.x = 0;
+	velocity.y = 0;
+
+	hasLevelEnded = false;
 	level1Start = false;
 }
 
@@ -47,51 +52,74 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 	if (currentLevel == 3 && level1Start == false)
 	{
 		leveltime.startTimer(dt);
-		currentTime = leveltime.getElapsedTime();
+		
 	}
-	else if(currentLevel > 3 || level1Start == true)
+
+	
+	
+	if (currentLevel > 3 && currentLevel <=  5 && hasLevelEnded == false)
+	{
+		velocity.x = 0;
+		leveltime.resumeTime();
+		leveltime.startTimer(dt);
+	}
+	else if (currentLevel > 3 && currentLevel <= 5 && hasLevelEnded == true)
+	{
+		switch (currentLevel)
+		{
+		case 4:
+			position.x = 70;
+			position.y = 100;
+			break;
+		}
+	}
+
+	currentTime = leveltime.getElapsedTime();
+
+
+
+	if(level1Start == true)
 		currentTime = 0.25;
 
-
-	if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
-	{
-		switch (e.button.button)
+	if (currentTime >= 0.25)
+	{	
+		hasLevelEnded = true;
+		level1Start = true;
+		if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
 		{
-		case SDL_BUTTON_LEFT:
-			
-			if(clickCount < 2 && cantAim == false && currentTime >= 0.25f)
+			switch (e.button.button)
 			{
-				gravity = 0.098;
-				CreateDirection(e,dt);
-				clickCount++;
-				currentPar++;
-				if (currentLevel == 3)
-					leveltime.stopTimer();
-				if(level1Start == false)
-					level1Start = true;
+			case SDL_BUTTON_LEFT:
+
+				if (clickCount < 2 && cantAim == false)
+				{
+					gravity = 0.098;
+					CreateDirection(e, dt);
+					clickCount++;
+					currentPar++;
+					
+				}
+
+				isMoving = true;
+				isPressed = true;
+				break;
 			}
-				
-			isMoving = true;
-			isPressed = true;
-			break;
-		}
 
-	}
-	else if (e.type == SDL_MOUSEBUTTONUP && isPressed == true)
-	{
-		switch (e.button.button)
+		}
+		else if (e.type == SDL_MOUSEBUTTONUP && isPressed == true)
 		{
-		case SDL_BUTTON_LEFT:
-			isPressed = false;
-			break;
+			switch (e.button.button)
+			{
+			case SDL_BUTTON_LEFT:
+				isPressed = false;
+				break;
+			}
+
 		}
 
+		worldCollision();
+		leveltime.stopTimer();
 	}
-	
-	
-	worldCollision();
-	
-
 }
 
 
@@ -133,8 +161,7 @@ void player::CreateDirection(SDL_Event &e, float dt)
 
 void player::worldCollision() 
 {
-	startPos.x = position.x;
-	startPos.y = position.y;
+	
 
 	ActualBounderies.x = boundaries.x + collisionBoundaries->x;
 	ActualBounderies.y = boundaries.y + collisionBoundaries->y;
@@ -143,8 +170,8 @@ void player::worldCollision()
 
 	if (ActualBounderies.y > 736) 
 	{
-		boundaries.x = startPos.x;
-		boundaries.y = startPos.y;
+		boundaries.x = position.x;
+		boundaries.y = position.y;
 		velocity.y = 0;
 		clickCount = 0;
 		velocity.x = 0;
@@ -163,7 +190,6 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		
 		if (collision::DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
 		{
-			std::cout << "down" << std::endl;
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
 		}
@@ -176,7 +202,6 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		}
 		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
 		{
-			std::cout << "working" << std::endl;
 			if (tile == u)
 			{
 				boundaries.x = (32 * j) + 34;
@@ -206,8 +231,8 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
 			
-			boundaries.y = 50;
-			boundaries.x = 50;
+			boundaries.y = position.y;
+			boundaries.x = position.x;
 			
 			clickCount = 0;
 		}
@@ -218,8 +243,8 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 			boundaries.x = (32 * j) - 33;
 			setVelocity(0, gravity);
 
-			boundaries.y = 50;
-			boundaries.x = 50;
+			boundaries.y = position.y;
+			boundaries.x = position.x;
 			clickCount = 0;
 
 		}
@@ -231,8 +256,8 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 				boundaries.x = (32 * j) + 34;
 				setVelocity(0, gravity);
 
-				boundaries.y = 50;
-				boundaries.x = 50;
+				boundaries.y = position.y;
+				boundaries.x = position.x;
 
 				clickCount = 0;
 			}
@@ -244,10 +269,9 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		{
 			if(boundaries.x > (32 * j) && boundaries.x < (32 * j) + dest.w || boundaries.x + boundaries.w > (32 * j) && boundaries.x + boundaries.w < (32 * j) + dest.w && boundaries.y < (32 * i))
 			{
-				std::cout << "working" << std::endl;
 				boundaries.y = (32 * i) - 16;
-				boundaries.y = 50;
-				boundaries.x = 50;
+				boundaries.y = position.y;
+				boundaries.x = position.x;
 				clickCount = 0;
 			}
 			setVelocity(0, 0);

@@ -1,10 +1,13 @@
 #include "score.h"
 
-Score::Score(int _levelPar, int clickAmount, SDL_Renderer* renderer)
+Score::Score( int clickAmount, SDL_Renderer* renderer)
 {
 	
 	currentPar = clickAmount;
-	levelPar = _levelPar;
+	levelPar = new int[]
+	{
+		2,4,3
+	};
 	font = TTF_OpenFont("assets/ARCADECLASSIC.TTF", 50);
 	
 	texture = new SDL_Texture * [2];
@@ -27,11 +30,11 @@ Score::Score(int _levelPar, int clickAmount, SDL_Renderer* renderer)
 Score::~Score() {}
 
 
-void Score::update(SDL_Event& e, int clickAmount, SDL_Renderer* renderer) 
+void Score::update(SDL_Event& e, int clickAmount, SDL_Renderer* renderer, int levelParIndex) 
 {
 
 	String[0] = "Current Par   " + std::to_string(currentPar);
-	String[1] = "Level Par   " + std::to_string(levelPar);
+	String[1] = "Level Par   " + std::to_string(levelPar[levelParIndex]);
 
 	texture[0] = Render::textSprite(String[0].c_str(), texture[0], { 255,255,255 }, font, renderer);
 	texture[1] = Render::textSprite(String[1].c_str(), texture[1], { 255,255,255 }, font, renderer);
