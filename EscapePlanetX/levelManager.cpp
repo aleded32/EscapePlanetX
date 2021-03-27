@@ -3,7 +3,7 @@
 levelManager::levelManager(SDL_Renderer* renderer) 
 {
 
-	currentLevel = levels::level1;
+	currentLevel = levels::startMenu;
 
 	textures = new SDL_Texture * [7];
 	
@@ -16,7 +16,7 @@ levelManager::levelManager(SDL_Renderer* renderer)
 		textures[6] = Render::sprite("assets/quit.png", renderer, textures[6]),
 
 
-		Player = new player(80, 200, 16, 32, renderer);
+		Player = new player(80, 367, 16, 32, renderer);
 		enemiesType1 = new enemy(renderer);
 		level1Tiles = new tilemaps(1280 / 32, 704 / 32, renderer, 2);
 		Background = new background(0, 0, 1080, 1920, renderer);
@@ -87,13 +87,13 @@ void levelManager::start(SDL_Renderer* renderer)
 	enemyW.push_back(32);
 
 	//level2
-	enemyX.push_back(150);
-	enemyY.push_back(10);
+	enemyX.push_back(200);
+	enemyY.push_back(150);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
 
 	enemyX.push_back(1060);
-	enemyY.push_back(480);
+	enemyY.push_back(420);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
 
@@ -166,6 +166,7 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 			for (int i = 0; i < enemyX.size(); i++) 
 			{
 				enemiesType1->setBoundaries(enemyX[i], enemyY[i], i);
+				enemiesType1->setPositions(enemyX[i], enemyY[i], i);
 			}
 		}
 		enemiesType1->setType((int)currentLevel);
@@ -319,6 +320,7 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 			Player->boundaries.x = Player->position.x;
 			Player->boundaries.y = Player->position.y;
 			Player->setVelocity(0, 0);
+			Player->clickCount = 0;
 
 		}
 

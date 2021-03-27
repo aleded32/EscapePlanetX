@@ -48,8 +48,8 @@ int goal::update(SDL_Event& e, int level, SDL_Rect& player, int& currentPar, int
 		switch (level)
 		{
 		case 4:
-			player.x = startPos.x;
-			player.y = startPos.y;
+			player.x = 60;
+			player.y = 175;
 			break;
 		case 5:
 			player.x = startPos.x;

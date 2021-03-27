@@ -39,15 +39,15 @@ public:
 		{
 		case 3:
 			type[0] = strDown;
-			type[1] = strRight;
+			type[1] = strLeft;
 			break;
 		case 4:
-			type[0] = strUp;
-			type[1] = strRight;
+			type[0] = strDown;
+			type[1] = waveRight;
 			break;
 		case 5:
 			type[0] = strUp;
-			type[1] = strRight;
+			type[1] = waveLeft;
 			break;
 		}
 	}
@@ -62,6 +62,13 @@ public:
 		boundaries[i]->x = x;
 		boundaries[i]->y = y;
 		return boundaries;
+	}
+
+	std::vector<vector2<int>*> setPositions(int x, int y, int i)
+	{
+		positions[i]->x = x;
+		positions[i]->y = y;
+		return positions;
 	}
 
 private:

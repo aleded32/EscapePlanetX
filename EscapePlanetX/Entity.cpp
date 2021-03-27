@@ -63,16 +63,7 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 		leveltime.resumeTime();
 		leveltime.startTimer(dt);
 	}
-	else if (currentLevel > 3 && currentLevel <= 5 && hasLevelEnded == true)
-	{
-		switch (currentLevel)
-		{
-		case 4:
-			position.x = 70;
-			position.y = 100;
-			break;
-		}
-	}
+	
 
 	currentTime = leveltime.getElapsedTime();
 
@@ -192,12 +183,14 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		{
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
+			clickCount = 0;
 		}
 
 		else if (collision::RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
 		{
 			boundaries.x = (32 * j) - 33;
 			setVelocity(0, gravity);
+			clickCount = 0;
 
 		}
 		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
@@ -206,6 +199,7 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 			{
 				boundaries.x = (32 * j) + 34;
 				setVelocity(0, gravity);
+				clickCount = 0;
 			}
 
 

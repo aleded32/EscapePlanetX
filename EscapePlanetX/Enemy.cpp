@@ -23,7 +23,7 @@ void enemy::start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int>
 		flips.push_back(new SDL_RendererFlip);
 
 		boundaries.push_back(new SDL_Rect);
-		type.push_back(none);
+		type.push_back(moveType::none);
 
 		boundaries[i]->x = positions[i]->x;
 		boundaries[i]->y = positions[i]->y;
