@@ -57,6 +57,11 @@ public:
 		return boundaries;
 	}
 
+	std::vector<vector2<int>*> getPositions()
+	{
+		return positions;
+	}
+
 	std::vector<SDL_Rect*> setBoundaries(int x, int y, int i)
 	{
 		boundaries[i]->x = x;

@@ -93,7 +93,7 @@ void levelManager::start(SDL_Renderer* renderer)
 	enemyW.push_back(32);
 
 	enemyX.push_back(1060);
-	enemyY.push_back(420);
+	enemyY.push_back(491);
 	enemyH.push_back(32);
 	enemyW.push_back(32);
 
@@ -151,8 +151,12 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 		//gameOverMenuUpdate(e);
 	}
 
-	level1Update(e, dt);
+	if (currentLevel != levels::startMenu)
+	{
+		level1Update(e, dt);
+	}
 	currentLevel = (levels)Goal->update(e, (int)currentLevel, Player->boundaries, Player->currentPar, level1Score->totalPar, Player->level1Start, Player->hasLevelEnded, Player->position);
+	
 
 	if(Goal->getIsLevelEnd() == true)
 	{
@@ -165,8 +169,9 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 
 			for (int i = 0; i < enemyX.size(); i++) 
 			{
-				enemiesType1->setBoundaries(enemyX[i], enemyY[i], i);
 				enemiesType1->setPositions(enemyX[i], enemyY[i], i);
+				enemiesType1->setBoundaries(enemyX[i], enemyY[i], i);
+				std::cout << enemiesType1->getPositions()[1]->y << std::endl;
 			}
 		}
 		enemiesType1->setType((int)currentLevel);
@@ -187,9 +192,8 @@ void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
 	}
 	else if (currentLevel == levels::level1 || currentLevel == levels::level2 || currentLevel == levels::level3)
 	{
-		
 		level1Draw(renderer, e);
-		Goal->draw(renderer);
+		
 	}
 	else if (currentLevel == levels::gameOverMenu)
 	{
@@ -358,6 +362,7 @@ void levelManager::level1Draw(SDL_Renderer* renderer, SDL_Event& e)
 
 	level1Score->update(e, Player->currentPar, renderer, currentLevelPar);
 	Background->draw(renderer);
+	Goal->draw(renderer);
 	level1Tiles->drawLevel(renderer);
 	enemiesType1->draw(renderer);
 	Player->draw(renderer, e);

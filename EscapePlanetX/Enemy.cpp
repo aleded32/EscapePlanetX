@@ -79,9 +79,9 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel)
 		if (boundaries[1]->x > positions[1]->x + 100)
 			type[1] = waveLeft;
 
-		if (boundaries[0]->y < positions[0]->y - 40)
+		if (boundaries[0]->y < positions[0]->y - 60)
 			type[0] = strDown;
-		if (boundaries[0]->y > positions[0]->y + 40)
+		if (boundaries[0]->y > positions[0]->y + 60)
 			type[0] = strUp;
 		break;
 
