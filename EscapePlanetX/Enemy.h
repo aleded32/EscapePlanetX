@@ -76,6 +76,8 @@ public:
 		return positions;
 	}
 
+	SDL_Texture* sprite;
+
 private:
 
 	std::vector<moveType> type;
@@ -88,7 +90,7 @@ private:
 
 	std::vector<int> widths;
 	std::vector<int> heights;
-	SDL_Texture* sprite;
+	
 
 	timer time;
 };

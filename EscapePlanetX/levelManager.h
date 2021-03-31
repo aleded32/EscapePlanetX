@@ -1,5 +1,4 @@
 #pragma once
-#include "SDL.h"
 #include "Entity.h"
 #include "Enemy.h"
 #include "Background.h"
@@ -8,7 +7,7 @@
 #include "animation.h"
 #include "tilemaps.h"
 #include "goal.h"
-#include <iostream>
+#include "soundManager.h"
 
 
 class levelManager 
@@ -35,6 +34,8 @@ public:
 	void update(SDL_Event& e, bool& isGameRunning, float dt);
 	void start(SDL_Renderer* renderer);
 	void draw(SDL_Renderer* renderer, SDL_Event& e);
+
+	void garabageCollector();
 private:
 
 
@@ -51,6 +52,8 @@ private:
 	void startMenuDraw(SDL_Renderer* render);
 	void gameOverMenuDraw(SDL_Renderer* render);
 	void guideMenuDraw(SDL_Renderer* render);
+
+
 	timer time;
 	
 
@@ -77,6 +80,7 @@ private:
 
 	int currentLevelPar;
 
+	const char** musicFileNames;
 
 	bool isLevelEnd;
 

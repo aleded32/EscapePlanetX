@@ -89,8 +89,10 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 			{
 			case SDL_BUTTON_LEFT:
 
+				
 				if (clickCount < 2 && cantAim == false)
 				{
+					soundManager::Instance()->playSFX(2);
 					gravity = 0.098;
 					CreateDirection(e, dt);
 					clickCount++;

@@ -4,6 +4,7 @@
 #include "vectors.h"
 #include "collision.h"
 #include "time.h"
+#include "soundManager.h"
 #include <iostream>
 
 

@@ -42,12 +42,13 @@ public:
 	void drawLevel(SDL_Renderer* renderer);
 	int* srcX;
 	int* srcY;
+	SDL_Texture* tiles;
 
 private:
 
 	int w, h;
 	std::ifstream* read;
-	SDL_Texture* tiles;
+	
 	
 	int **levelTiles;
 

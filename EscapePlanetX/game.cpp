@@ -3,7 +3,7 @@
 game::game(const char title[15], int x, int y, int w, int h, Uint32 flag)
 {
 
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	TTF_Init();
 	window = SDL_CreateWindow(title, x, y, w, h, flag);
 	renderer = SDL_CreateRenderer(window, -1, 0);
@@ -50,6 +50,8 @@ void game::update()
 		
 		
 	}
+
+	LevelManager->garabageCollector();
 }
 
 

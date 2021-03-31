@@ -1,5 +1,6 @@
 #include "levelManager.h"
 
+
 levelManager::levelManager(SDL_Renderer* renderer) 
 {
 
@@ -7,14 +8,13 @@ levelManager::levelManager(SDL_Renderer* renderer)
 
 	textures = new SDL_Texture * [7];
 	
-		textures[0] = Render::sprite("assets/MainMenuBackGround.png", renderer, textures[0]),
+	textures[0] = Render::sprite("assets/MainMenuBackGround.png", renderer, textures[0]),
 		textures[1] = Render::sprite("assets/gameOverMenu.png", renderer, textures[1]),
 		textures[2] = Render::sprite("assets/guideMenu.png", renderer, textures[2]),
 		textures[3] = Render::sprite("assets/guide.png", renderer, textures[3]),
 		textures[4] = Render::sprite("assets/start.png", renderer, textures[4]),
 		textures[5] = Render::sprite("assets/back.png", renderer, textures[5]),
 		textures[6] = Render::sprite("assets/quit.png", renderer, textures[6]),
-
 
 		Player = new player(80, 367, 16, 32, renderer);
 		enemiesType1 = new enemy(renderer);
@@ -57,10 +57,25 @@ levelManager::levelManager(SDL_Renderer* renderer)
 	spriteSrc[3]->x = 0; spriteSrc[3]->y = 0; spriteSrc[3]->h = 16; spriteSrc[3]->w = 32;
 	spriteSrc[4]->x = 0; spriteSrc[4]->y = 0; spriteSrc[4]->h = 16; spriteSrc[4]->w = 32;
 
+	musicFileNames = new const char* []
+	{
+		"assets/levelMusic.wav",
+		"assets/menu.wav",
+		"assets/jump.wav",
+	};
+
+	
+		
+	
 	
 }
 
 levelManager::~levelManager() 
+{
+	
+}
+
+void levelManager::garabageCollector() 
 {
 	delete Player;
 	delete Background;
@@ -70,11 +85,23 @@ levelManager::~levelManager()
 	delete platFormAnimation;
 	delete textures;
 	delete spriteRects;
+	delete soundManager::Instance();
+	SDL_DestroyTexture(Player->sprite);
+	SDL_DestroyTexture(Background->sprite);
+	SDL_DestroyTexture(level1Tiles->tiles);
+	for(int i = 0; i < sizeof(textures); i++)
+		SDL_DestroyTexture(textures[i]);
+
+	SDL_DestroyTexture(enemiesType1->sprite);
 }
 
 
 void levelManager::start(SDL_Renderer* renderer) 
 {
+	soundManager::Instance()->loadMusicList(musicFileNames[0]);
+	soundManager::Instance()->loadMusicList(musicFileNames[1]);
+	soundManager::Instance()->loadMusicList(musicFileNames[2]);
+
 	//level1
 	enemyX.push_back(220);
 	enemyY.push_back(350);
@@ -176,6 +203,8 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 		}
 		enemiesType1->setType((int)currentLevel);
 	}
+
+	soundManager::Instance()->playMusic((int)currentLevel);
 		
 }
 
