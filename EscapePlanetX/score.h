@@ -27,6 +27,10 @@ public:
 	int totalPar;
 	int totalLevelPar;
 
+	TTF_Font* getFont()
+	{
+		return font;
+	}
 
 private:
 

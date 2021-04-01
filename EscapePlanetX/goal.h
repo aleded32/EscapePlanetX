@@ -13,7 +13,7 @@ public:
 	~goal();
 
 
-	int update(SDL_Event& e,int level, SDL_Rect& player, int& currentPar, int totalPar, bool& levelStart, bool& hasLevelEnded, vector2<int> startPos);
+	int update(SDL_Event& e,int level, SDL_Rect& player, int& currentPar, int& totalPar, bool& levelStart, bool& hasLevelEnded, vector2<int> startPos);
 	void start(SDL_Renderer* renderer);
 	void draw(SDL_Renderer* renderer);
 

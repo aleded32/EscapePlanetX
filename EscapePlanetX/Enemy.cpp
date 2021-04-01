@@ -8,9 +8,9 @@ enemy::enemy(SDL_Renderer* render)
 
 enemy::~enemy() {}
 
-void enemy::start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect _src)
+void enemy::start(int _amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect _src)
 {
-
+	amountOfEnemies = _amountOfEnemies;
 	src = _src;
 
 	for (int i = 0; i < amountOfEnemies; i++) 
@@ -37,24 +37,39 @@ void enemy::start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int>
 }
 
 
-void enemy::draw(SDL_Renderer* renderer)
+void enemy::draw(SDL_Renderer* renderer, int currentLevel)
 {
 
 	SDL_Point point;
 	point.x = 16;
 	point.y = 16;
 	
-	for (size_t i = 0; i < boundaries.size(); i++) 
+	if (currentLevel <= 4)
 	{
-		SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
-		
+		for (size_t i = 0; i < boundaries.size()-1; i++)
+		{
+
+			SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
+
+		}
 	}
+	else if (currentLevel > 3) 
+	{
+		for (size_t i = 0; i < boundaries.size(); i++)
+		{
+
+			SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
+
+		}
+	}
+	
+	
 
 	
 }
 
 
-void enemy::update(SDL_Event &e, float dt, int currentLevel) 
+void enemy::update(SDL_Event &e, float dt, int currentLevel, bool& isGamePaused)
 {
 	
 
@@ -62,7 +77,7 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel)
 
 	switch(currentLevel)
 	{
-	case 3:
+	case 2:
 		if (boundaries[1]->x < positions[1]->x - 100)
 			type[1] = strRight;
 		if (boundaries[1]->x > positions[1]->x + 100)
@@ -71,6 +86,17 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel)
 		if (boundaries[0]->y < positions[0]->y - 80)
 			type[0] = strDown;
 		 if (boundaries[0]->y > positions[0]->y + 80)
+			type[0] = strUp;
+		break;
+	case 3:
+		if (boundaries[1]->x < positions[1]->x - 100)
+			type[1] = waveRight;
+		if (boundaries[1]->x > positions[1]->x + 100)
+			type[1] = waveLeft;
+
+		if (boundaries[0]->y < positions[0]->y - 60)
+			type[0] = strDown;
+		if (boundaries[0]->y > positions[0]->y + 60)
 			type[0] = strUp;
 		break;
 	case 4:
@@ -83,14 +109,21 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel)
 			type[0] = strDown;
 		if (boundaries[0]->y > positions[0]->y + 60)
 			type[0] = strUp;
+
+		if (boundaries[2]->y < positions[2]->y - 60)
+			type[2] = waveDown;
+		if (boundaries[2]->y > positions[2]->y + 60)
+			type[2] = waveUp;
 		break;
 
 	}
 	
-	
-
+	if(!isGamePaused) 
+	{
 		move(type[0], 0, dt);
 		move(type[1], 1, dt);
+		move(type[2], 2, dt);
+	}
 	
 }
 
@@ -98,6 +131,8 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel)
 void enemy::move(moveType type, int enemy, float dt) 
 {
 	time.startTimer(dt);
+
+	
 
 	if (enemy < boundaries.size() && enemy > -1) 
 	{

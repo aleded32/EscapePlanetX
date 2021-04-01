@@ -18,10 +18,10 @@ public:
 	{
 		startMenu,
 		guideMenu,
-		gameOverMenu,
 		level1,
 		level2,
-		level3
+		level3,
+		gameOverMenu,
 	};
 
 	levelManager(SDL_Renderer* render);
@@ -43,8 +43,9 @@ private:
 	void level2Update(SDL_Event& e, float dt);
 	void level3Update(SDL_Event& e, float dt);
 	void startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt);
-	void gameOverMenuUpdate(SDL_Event& e);
+	void gameOverMenuUpdate(SDL_Event& e, SDL_Renderer* renderer);
 	void guideMenuUpdate(SDL_Event& e);
+	
 
 	void level1Draw(SDL_Renderer* render, SDL_Event& e);
 	void level2Draw(SDL_Renderer* render, SDL_Event& e);
@@ -52,6 +53,7 @@ private:
 	void startMenuDraw(SDL_Renderer* render);
 	void gameOverMenuDraw(SDL_Renderer* render);
 	void guideMenuDraw(SDL_Renderer* render);
+	void PauseDraw(SDL_Renderer* render);
 
 
 	timer time;
@@ -83,5 +85,12 @@ private:
 	const char** musicFileNames;
 
 	bool isLevelEnd;
+
+	std::string finalPar;
+	std::string TotalLevelPar;
+
+	std::string finalPlayerScore;
+	bool isPressed, gameIsPaused;
+	
 
 };

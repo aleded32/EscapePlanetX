@@ -28,10 +28,10 @@ public:
 
 	void move(moveType _type, int enemy, float dt);
 
-	void update(SDL_Event& e, float dt, int currentLevel);
+	void update(SDL_Event& e, float dt, int currentLevel, bool& isGamePaused);
 	void start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect src);
 	void collisionEnemy();
-	void draw(SDL_Renderer* renderer);
+	void draw(SDL_Renderer* renderer, int currentLevel);
 
 	void setType(int currentLevel) 
 	{
@@ -48,6 +48,7 @@ public:
 		case 5:
 			type[0] = strUp;
 			type[1] = waveLeft;
+			type[2] = waveUp;
 			break;
 		}
 	}
@@ -77,6 +78,11 @@ public:
 	}
 
 	SDL_Texture* sprite;
+	
+	int getEnemyAmount() 
+	{
+		return amountOfEnemies;
+	}
 
 private:
 
@@ -91,6 +97,9 @@ private:
 	std::vector<int> widths;
 	std::vector<int> heights;
 	
+	int amountOfEnemies;
 
 	timer time;
+
+	bool moveRight, moveLeft, moveDown, moveUp;
 };

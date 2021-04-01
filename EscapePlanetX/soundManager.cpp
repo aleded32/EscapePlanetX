@@ -22,7 +22,7 @@ void soundManager::playMusic(int currentLevel)
 	Mix_Volume(-1, 4);
 	Mix_Volume(0, 10);
 	
-	if (currentLevel > 2)
+	if (currentLevel > 1 && currentLevel < 5)
 	{
 		if(!soundisPlaying)
 		{
@@ -31,7 +31,7 @@ void soundManager::playMusic(int currentLevel)
 		Mix_PlayChannel(-1, musicList[0], -1);
 		soundisPlaying = true;
 	}
-	else if (currentLevel <= 2) 
+	else if (currentLevel < 2 || currentLevel > 4) 
 	{
 		if (soundisPlaying) 
 		{

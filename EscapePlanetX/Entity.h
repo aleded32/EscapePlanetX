@@ -49,9 +49,9 @@ public:
 	void moving();
 	void worldCollision();
 	void tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int j, int i);
-	void update(SDL_Event& e, float dt, int currentLevel);
+	void update(SDL_Event& e, float dt, int currentLevel, bool& gameIsPaused);
 	void start();
-	void draw(SDL_Renderer* renderer, SDL_Event& e);
+	void draw(SDL_Renderer* renderer, SDL_Event& e, bool& isGamePaused);
 
 	vector2<float> setVelocity(float x, float y);
 	vector2<float> getVelocity();

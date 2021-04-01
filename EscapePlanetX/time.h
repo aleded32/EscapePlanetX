@@ -90,9 +90,25 @@ public:
 
 	void restartTime() 
 	{
-		timerControl = false;
 		seconds = 0;
 		currentTime = 0;
+	}
+
+	void rewindTime(float dt) 
+	{
+		if (timerControl == false)
+		{
+			if (seconds > 0)
+				currentTime += dt;
+			else if (seconds < 1)
+				currentTime = 0;
+
+			if (currentTime >= 40)
+			{
+				seconds -= 0.25;
+				currentTime = 0;
+			}
+		}
 	}
 
 	void pauseTime() 

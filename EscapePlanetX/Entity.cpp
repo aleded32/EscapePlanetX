@@ -45,7 +45,7 @@ void player::start()
 }
 
 
-void player::update(SDL_Event &e, float dt, int currentLevel)
+void player::update(SDL_Event &e, float dt, int currentLevel, bool& gameIsPaused)
 {
 
 
@@ -57,16 +57,22 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 
 	
 	
-	if (currentLevel > 3 && currentLevel <=  5 && hasLevelEnded == false)
+	if (currentLevel > 1 && currentLevel <=  4 && hasLevelEnded == false)
 	{
 		velocity.x = 0;
 		switch (currentLevel)
 		{
-		case 4:
+		case 3:
 			position.x = 60;
 			position.y = 170;
 			break;
+		case 4:
+			position.x = 85;
+			position.y = 580;
+			break;
 		}
+		
+	
 		leveltime.resumeTime();
 		leveltime.startTimer(dt);
 	}
@@ -74,7 +80,7 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 
 	currentTime = leveltime.getElapsedTime();
 
-
+	
 
 	if(level1Start == true)
 		currentTime = 0.25;
@@ -83,42 +89,45 @@ void player::update(SDL_Event &e, float dt, int currentLevel)
 	{	
 		hasLevelEnded = true;
 		level1Start = true;
-		if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
+		if (!gameIsPaused)
 		{
-			switch (e.button.button)
+			if (e.type == SDL_MOUSEBUTTONDOWN && isPressed == false)
 			{
-			case SDL_BUTTON_LEFT:
-
-				
-				if (clickCount < 2 && cantAim == false)
+				switch (e.button.button)
 				{
-					soundManager::Instance()->playSFX(2);
-					gravity = 0.098;
-					CreateDirection(e, dt);
-					clickCount++;
-					currentPar++;
-					
+				case SDL_BUTTON_LEFT:
+
+
+					if (clickCount < 2 && cantAim == false)
+					{
+						soundManager::Instance()->playSFX(2);
+						gravity = 0.098;
+						CreateDirection(e, dt);
+						clickCount++;
+						currentPar++;
+
+					}
+
+					isMoving = true;
+					isPressed = true;
+					break;
 				}
 
-				isMoving = true;
-				isPressed = true;
-				break;
 			}
-
-		}
-		else if (e.type == SDL_MOUSEBUTTONUP && isPressed == true)
-		{
-			switch (e.button.button)
+			else if (e.type == SDL_MOUSEBUTTONUP && isPressed == true)
 			{
-			case SDL_BUTTON_LEFT:
-				isPressed = false;
-				break;
+				switch (e.button.button)
+				{
+				case SDL_BUTTON_LEFT:
+					isPressed = false;
+					break;
+				}
+
 			}
 
+			worldCollision();
+			leveltime.stopTimer();
 		}
-
-		worldCollision();
-		leveltime.stopTimer();
 	}
 }
 
@@ -187,7 +196,7 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 	//wall
 	for (int u = 1; u < 8; u++)
 	{
-		
+
 		if (collision::DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y < 0)
 		{
 			boundaries.y = (32 * i) + 34;
@@ -202,14 +211,9 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		}
 		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
 		{
-			if (tile == u)
-			{
-				boundaries.x = (32 * j) + 34;
-				setVelocity(0, gravity);
-			}
 
-
-
+			boundaries.x = (32 * j) + 34;
+			setVelocity(0, gravity);
 		}
 		else if (collision::UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
 		{
@@ -297,12 +301,15 @@ void player::moving()
 
 
 
-void player::draw(SDL_Renderer* renderer, SDL_Event &e)
+void player::draw(SDL_Renderer* renderer, SDL_Event &e, bool& isGamePaused)
 {
 	SDL_RenderCopy(renderer, sprite, 0, &boundaries);
 
-		 if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
-				SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
+	if (!isGamePaused)
+	{
+		if (clickCount < 2 && e.motion.x > 0 && e.motion.x < 1280)
+			SDL_RenderDrawLine(renderer, e.motion.x, e.motion.y, boundaries.x + 32, boundaries.y + 8);
+	}
 
 		 
 

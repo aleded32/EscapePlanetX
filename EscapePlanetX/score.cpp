@@ -6,12 +6,17 @@ Score::Score( int clickAmount, SDL_Renderer* renderer)
 	currentPar = clickAmount;
 	levelPar = new int[]
 	{
-		2,4,3
+		2,5,8
 	};
-	font = TTF_OpenFont("assets/ARCADECLASSIC.TTF", 50);
+	font = TTF_OpenFont("assets/FutilePro.ttf", 50);
 	
 	texture = new SDL_Texture * [2];
+	totalLevelPar = 0;
 	
+	for (int i = 0; i < sizeof(levelPar) - 1; i++)
+	{
+			totalLevelPar += levelPar[i];
+	}
 	
 	texts[0].x = 20;
 	texts[0].y = 2;

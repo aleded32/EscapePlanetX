@@ -128,7 +128,7 @@ private:
 
 		if (playerXY.x > tileXY.x && player.x < tileXY.x + tileRect.w && playerXY.y > tileXY.y && player.y < tileXY.y + tileRect.h)
 		{
-			if (player.x > tileXY.x && player.x < tileXY.x + tileRect.w && player.y  < tileXY.y)
+			if (player.x + playerXY.x > tileXY.x && player.x < tileXY.x + tileRect.w && player.y  < tileXY.y)
 			{
 				if (tile == tileValue)
 				{
