@@ -6,7 +6,7 @@ Score::Score( int clickAmount, SDL_Renderer* renderer)
 	currentPar = clickAmount;
 	levelPar = new int[]
 	{
-		2,5,8
+		2,5,10
 	};
 	font = TTF_OpenFont("assets/FutilePro.ttf", 50);
 	

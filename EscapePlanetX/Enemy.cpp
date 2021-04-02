@@ -13,8 +13,18 @@ void enemy::start(int _amountOfEnemies, std::vector<int> enemyX, std::vector<int
 	amountOfEnemies = _amountOfEnemies;
 	src = _src;
 
+	positions.clear();
+	boundaries.clear();
+	type.clear();
+	flips.clear();
+	widths.clear();
+	heights.clear();
+
+	
+
 	for (int i = 0; i < amountOfEnemies; i++) 
 	{
+		
 
 		positions.push_back(new vector2<int>(enemyX[i], enemyY[i]));
 		widths.push_back(width[i]);
@@ -30,9 +40,11 @@ void enemy::start(int _amountOfEnemies, std::vector<int> enemyX, std::vector<int
 		boundaries[i]->w = widths[i];
 		boundaries[i]->h = heights[i];
 
+		
+
 		*flips[i] = SDL_FLIP_NONE;
 	}
-
+	
 	
 }
 
@@ -43,21 +55,24 @@ void enemy::draw(SDL_Renderer* renderer, int currentLevel)
 	SDL_Point point;
 	point.x = 16;
 	point.y = 16;
-	
-	if (currentLevel <= 4)
-	{
-		for (size_t i = 0; i < boundaries.size()-1; i++)
-		{
 
+	
+	
+	if (currentLevel < 4 && currentLevel > 1)
+	{
+		for (size_t i = 0; i < 2; i++)
+		{
+			
 			SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
 
 		}
 	}
-	else if (currentLevel > 3) 
+	
+	if (currentLevel > 3 && currentLevel < 5) 
 	{
-		for (size_t i = 0; i < boundaries.size(); i++)
+		for (size_t i = 0; i < 3; i++)
 		{
-
+			
 			SDL_RenderCopyEx(renderer, sprite, &src, boundaries[i], 0, &point, *flips[i]);
 
 		}
@@ -72,8 +87,9 @@ void enemy::draw(SDL_Renderer* renderer, int currentLevel)
 void enemy::update(SDL_Event &e, float dt, int currentLevel, bool& isGamePaused)
 {
 	
-
-
+	
+	
+	
 
 	switch(currentLevel)
 	{
@@ -89,10 +105,10 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel, bool& isGamePaused)
 			type[0] = strUp;
 		break;
 	case 3:
-		if (boundaries[1]->x < positions[1]->x - 100)
-			type[1] = waveRight;
-		if (boundaries[1]->x > positions[1]->x + 100)
-			type[1] = waveLeft;
+		if (boundaries[1]->x < positions[1]->x - 60)
+			type[1] = diagonalRight;
+		else if (boundaries[1]->x > positions[1]->x + 60)
+			type[1] = diagonalLeft;
 
 		if (boundaries[0]->y < positions[0]->y - 60)
 			type[0] = strDown;
@@ -100,26 +116,28 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel, bool& isGamePaused)
 			type[0] = strUp;
 		break;
 	case 4:
-		if (boundaries[1]->x < positions[1]->x - 100)
-			type[1] = waveRight;
-		if (boundaries[1]->x > positions[1]->x + 100)
-			type[1] = waveLeft;
+		if (boundaries[1]->x < positions[1]->x - 80)
+			type[1] = diagonalRight;
+		if (boundaries[1]->x > positions[1]->x + 80)
+			type[1] = diagonalLeft;
 
 		if (boundaries[0]->y < positions[0]->y - 60)
 			type[0] = strDown;
 		if (boundaries[0]->y > positions[0]->y + 60)
 			type[0] = strUp;
 
-		if (boundaries[2]->y < positions[2]->y - 60)
-			type[2] = waveDown;
-		if (boundaries[2]->y > positions[2]->y + 60)
-			type[2] = waveUp;
+		if (boundaries[2]->x < positions[2]->x - 50)
+			type[2] = diagonalRight;
+		if (boundaries[2]->x > positions[2]->x + 50)
+			type[2] = diagonalLeft;
 		break;
 
 	}
 	
 	if(!isGamePaused) 
 	{
+
+		
 		move(type[0], 0, dt);
 		move(type[1], 1, dt);
 		move(type[2], 2, dt);
@@ -130,9 +148,12 @@ void enemy::update(SDL_Event &e, float dt, int currentLevel, bool& isGamePaused)
 
 void enemy::move(moveType type, int enemy, float dt) 
 {
-	time.startTimer(dt);
+	
 
 	
+
+	srand(time(NULL));
+
 
 	if (enemy < boundaries.size() && enemy > -1) 
 	{
@@ -153,24 +174,17 @@ void enemy::move(moveType type, int enemy, float dt)
 		case enemy::strUp:
 			boundaries[enemy]->y -= 4 * dt;
 			break;
-		case enemy::waveLeft:
-			boundaries[enemy]->y += 1* (sin(2 * M_PI * 0.25 *(int)time.getElapsedTime()) + 0);
-			boundaries[enemy]->x -= 1.5 * dt;
+		case enemy::diagonalLeft:
+			boundaries[enemy]->y -= 1.7 * dt;
+			boundaries[enemy]->x -= 1.7 * dt;
 			*flips[enemy] = SDL_FLIP_NONE;
 			break;
-		case enemy::waveRight:
-			boundaries[enemy]->y += 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
-			boundaries[enemy]->x += 1.5 * dt;
+		case enemy::diagonalRight:
+			boundaries[enemy]->y +=  1.7 * dt;
+			boundaries[enemy]->x +=  1.7 * dt;
 			*flips[enemy] = SDL_FLIP_HORIZONTAL;
 			break;
-		case enemy::waveUp:
-			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
-			boundaries[enemy]->y -= 1.5 * dt;
-			break;
-		case enemy::waveDown:
-			boundaries[enemy]->x -= 1 * (sin(2 * M_PI * 0.25 * (int)time.getElapsedTime()) + 0);
-			boundaries[enemy]->y += 3 * dt;
-			break;
+	
 		}
 
 		

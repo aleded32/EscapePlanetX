@@ -70,6 +70,7 @@ private:
 	
 	vector2<float> velocity;
 	bool isMoving;
+	bool shotTaken;
 	float currentTime;
 	int speed;
 

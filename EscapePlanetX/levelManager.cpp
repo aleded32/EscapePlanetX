@@ -5,7 +5,8 @@ levelManager::levelManager(SDL_Renderer* renderer)
 {
 
 	currentLevel = levels::startMenu;
-
+	isCleared = true;
+	isFull = false;
 	textures = new SDL_Texture * [11];
 	
 	textures[0] = Render::sprite("assets/MainMenuBackGround.png", renderer, textures[0]);
@@ -140,6 +141,8 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 	mouseRect.h = 0;
 	if (currentLevel == levels::startMenu)
 	{
+		Player->boundaries.x = 80;
+		Player->boundaries.y = 367;
 		startMenuUpdate(e, isGameRunning, dt);
 	}
 	else if (currentLevel == levels::guideMenu)
@@ -149,6 +152,8 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 	else if (currentLevel == levels::level1)
 	{
 		Goal->setIsLevelEnd(false);
+			
+
 		level1Tiles->setLevel("assets/level1.txt");
 	}
 	else if (currentLevel == levels::level2)
@@ -163,9 +168,7 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 	}
 	
 		
-	
-
-	if (currentLevel != levels::startMenu)
+	if ((int)currentLevel > 1 || (int)currentLevel < 5)
 	{
 		if (e.type == SDL_KEYDOWN && isPressed == false)
 		{
@@ -190,8 +193,9 @@ void levelManager::update(SDL_Event& e, bool& isGameRunning, float dt)
 			}
 		}
 		level1Update(e, dt);
+		currentLevel = (levels)Goal->update(e, (int)currentLevel, Player->boundaries, Player->currentPar, level1Score->totalPar, Player->level1Start, Player->hasLevelEnded, Player->position);
 	}
-	currentLevel = (levels)Goal->update(e, (int)currentLevel, Player->boundaries, Player->currentPar, level1Score->totalPar, Player->level1Start, Player->hasLevelEnded, Player->position);
+	
 	
 
 	if(Goal->getIsLevelEnd() == true)
@@ -231,6 +235,7 @@ void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
 	
 	if (currentLevel == levels::startMenu)
 	{
+		
 		startMenuDraw(renderer);
 	}
 	else if (currentLevel == levels::guideMenu)
@@ -239,15 +244,25 @@ void levelManager::draw(SDL_Renderer* renderer, SDL_Event& e)
 	}
 	else if (currentLevel == levels::level1 || currentLevel == levels::level2 || currentLevel == levels::level3)
 	{
+		
 		level1Draw(renderer, e);
 		
 	}
 	else if (currentLevel == levels::gameOverMenu)
 	{
+		if (!enemyX.empty())
+		{
+			enemyX.clear();
+			enemyY.clear();
+		}
+		
+		
+		
 		gameOverMenuUpdate(e, renderer);
 		gameOverMenuDraw(renderer);
 	}
 
+	
 	
 }
 
@@ -283,7 +298,7 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt)
 		spriteSrc[4]->x = 0;
 	}
 
-	if (enemyX.empty() == true) 
+	if (enemyX.empty()) 
 	{
 		//level1
 		enemyX.push_back(220);
@@ -303,7 +318,7 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt)
 		enemyW.push_back(32);
 
 		enemyX.push_back(1060);
-		enemyY.push_back(491);
+		enemyY.push_back(485);
 		enemyH.push_back(32);
 		enemyW.push_back(32);
 
@@ -318,17 +333,21 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt)
 		enemyH.push_back(32);
 		enemyW.push_back(32);
 
-		enemyX.push_back(430);
-		enemyY.push_back(120);
+		enemyX.push_back(330);
+		enemyY.push_back(130);
 		enemyH.push_back(32);
 		enemyW.push_back(32);
 
 		enemiesType1->start(3, enemyX, enemyY, enemyW, enemyH, enemySrc[0]);
 
-		enemiesType1->setType(3);
+		
+
+		
+		
 	}
 	
-		
+	if (Goal->getIsLevelEnd())
+		Goal->setIsLevelEnd(false);
 	
 	
 
@@ -344,6 +363,7 @@ void levelManager::startMenuUpdate(SDL_Event& e, bool& isGameRunning, float dt)
 				if (spriteSrc[1]->x >= 32)
 				{
 					time.stopTimer();
+					enemiesType1->setType(2);
 					currentLevel = levels::level1;
 				}
 				else if (spriteSrc[2]->x >= 32)
@@ -413,7 +433,7 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 		}
 	}
 
-	if ((int)currentLevel <= 4) 
+	if ((int)currentLevel < 4) 
 	{
 		for (int i = 0; i < enemiesType1->getBoundaries().size()-1; i++)
 		{
@@ -428,7 +448,7 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 
 		}
 	}
-	else if ((int)currentLevel > 4)
+	else if ((int)currentLevel > 3)
 	{
 		for (auto& e : enemiesType1->getBoundaries())
 		{
@@ -451,6 +471,8 @@ void levelManager::level1Update(SDL_Event& e, float dt)
 
 void levelManager::gameOverMenuUpdate(SDL_Event& e, SDL_Renderer* renderer)
 {
+
+	
 
 	finalPar = "Total Final Par:  " + std::to_string(level1Score->totalPar);
 	TotalLevelPar = "Total Level Pars:  " + std::to_string(level1Score->totalLevelPar);

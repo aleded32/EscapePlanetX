@@ -19,14 +19,12 @@ public:
 		strRight,
 		strDown,
 		strUp,
-		waveLeft,
-		waveRight,
-		waveUp,
-		waveDown,
+		diagonalLeft,
+		diagonalRight,
 		none
 	};
 
-	void move(moveType _type, int enemy, float dt);
+	void move(moveType type, int enemy, float dt);
 
 	void update(SDL_Event& e, float dt, int currentLevel, bool& isGamePaused);
 	void start(int amountOfEnemies, std::vector<int> enemyX, std::vector<int> enemyY, std::vector<int> width, std::vector<int> height, SDL_Rect src);
@@ -37,18 +35,18 @@ public:
 	{
 		switch (currentLevel)
 		{
-		case 3:
+		case 2:
 			type[0] = strDown;
 			type[1] = strLeft;
 			break;
-		case 4:
+		case 3:
 			type[0] = strDown;
-			type[1] = waveRight;
+			type[1] = diagonalRight;
 			break;
-		case 5:
+		case 4:
 			type[0] = strUp;
-			type[1] = waveLeft;
-			type[2] = waveUp;
+			type[1] = diagonalLeft;
+			type[2] = diagonalRight;
 			break;
 		}
 	}
@@ -99,7 +97,7 @@ private:
 	
 	int amountOfEnemies;
 
-	timer time;
+	timer timeEnemy;
 
 	bool moveRight, moveLeft, moveDown, moveUp;
 };

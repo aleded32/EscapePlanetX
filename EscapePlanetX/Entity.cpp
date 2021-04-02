@@ -20,7 +20,7 @@ player::player(int _x, int _y, int _h, int _w, SDL_Renderer* render)
 	currentPar = 0;
 
 	
-	
+	shotTaken = false;
 
 
 }
@@ -62,6 +62,10 @@ void player::update(SDL_Event &e, float dt, int currentLevel, bool& gameIsPaused
 		velocity.x = 0;
 		switch (currentLevel)
 		{
+		case 2:
+			position.x = 80;
+			position.y = 367;
+			break;
 		case 3:
 			position.x = 60;
 			position.y = 170;
@@ -104,8 +108,14 @@ void player::update(SDL_Event &e, float dt, int currentLevel, bool& gameIsPaused
 						gravity = 0.098;
 						CreateDirection(e, dt);
 						clickCount++;
-						currentPar++;
+						
 
+					}
+					
+					if(shotTaken)
+					{
+						currentPar++;
+						shotTaken = false;
 					}
 
 					isMoving = true;
@@ -201,12 +211,14 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 		{
 			boundaries.y = (32 * i) + 34;
 			setVelocity(0, gravity);
+			shotTaken = true;
 		}
 
 		else if (collision::RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x > 0)
 		{
 			boundaries.x = (32 * j) - 33;
 			setVelocity(0, gravity);
+			shotTaken = true;
 
 		}
 		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().x < 0)
@@ -214,6 +226,7 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 
 			boundaries.x = (32 * j) + 34;
 			setVelocity(0, gravity);
+			shotTaken = true;
 		}
 		else if (collision::UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true && getVelocity().y > 0)
 		{
@@ -222,6 +235,7 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 			setVelocity(0, 0);
 			gravity = 0;
 			clickCount = 0;
+			shotTaken = true;
 		}
 	}
 			
@@ -230,55 +244,13 @@ void player::tilingCollision(int tile, int tileX, int tileY, SDL_Rect dest, int 
 	for (int u = 10; u < 14; u++)
 	{
 
-		if (collision::DownTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
+		if (collision::tileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
 		{
-			boundaries.y = (32 * i) + 34;
-			setVelocity(0, gravity);
-			
-			boundaries.y = position.y;
-			boundaries.x = position.x;
-			
-			clickCount = 0;
-		}
-
-		else if (collision::RightTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
-		{
-
-			boundaries.x = (32 * j) - 33;
-			setVelocity(0, gravity);
-
-			boundaries.y = position.y;
-			boundaries.x = position.x;
-			clickCount = 0;
-
-		}
-		else if (collision::LeftTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
-		{
-
-			if (tile == u)
-			{
-				boundaries.x = (32 * j) + 34;
-				setVelocity(0, gravity);
 
 				boundaries.y = position.y;
 				boundaries.x = position.x;
-
+				shotTaken = true;
 				clickCount = 0;
-			}
-
-
-
-		}
-		else if (collision::UpTileCollision(boundaries, dest, tile, tileX, tileY, u, i, j) == true)
-		{
-			if(boundaries.x > (32 * j) && boundaries.x < (32 * j) + dest.w || boundaries.x + boundaries.w > (32 * j) && boundaries.x + boundaries.w < (32 * j) + dest.w && boundaries.y < (32 * i))
-			{
-				boundaries.y = (32 * i) - 16;
-				boundaries.y = position.y;
-				boundaries.x = position.x;
-				clickCount = 0;
-			}
-			setVelocity(0, 0);
 		}
 	}
 

@@ -91,6 +91,7 @@ private:
 
 	std::string finalPlayerScore;
 	bool isPressed, gameIsPaused;
+	bool isCleared, isFull;
 	
 
 };

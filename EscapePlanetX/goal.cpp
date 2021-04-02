@@ -30,7 +30,7 @@ int goal::update(SDL_Event& e, int level, SDL_Rect& player, int& currentPar, int
 		break;
 	case 3:
 		boundaries.x = 1060;
-		boundaries.y = 560;
+		boundaries.y = 600;
 		break;
 	case 4:
 		boundaries.x = 40;
